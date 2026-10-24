@@ -133,11 +133,11 @@ SET IDENTITY_INSERT judge_assignments OFF;
 -- 12. Insert Evaluated & Locked Scores
 SET IDENTITY_INSERT scores ON;
 INSERT INTO scores (score_id, assignment_id, criterion_id, raw_score, weighted_score, feedback_json_url, is_locked) VALUES
-(1, 1, 1, 9.50, 2.850, 'https://scorevaultstorage.blob.core.windows.net/feedback-json/round-1/score-1.json', 1), -- Innovation (9.5/10 * 30% = 2.85)
-(2, 1, 2, 9.00, 2.700, 'https://scorevaultstorage.blob.core.windows.net/feedback-json/round-1/score-2.json', 1), -- Architecture (9.0/10 * 30% = 2.70)
-(3, 1, 3, 8.50, 2.125, 'https://scorevaultstorage.blob.core.windows.net/feedback-json/round-1/score-3.json', 1), -- Working Demo (8.5/10 * 25% = 2.125)
-(4, 1, 4, 9.00, 1.350, 'https://scorevaultstorage.blob.core.windows.net/feedback-json/round-1/score-4.json', 1); -- Pitch (9.0/10 * 15% = 1.35)
--- Total Weighted Score = 2.85 + 2.70 + 2.125 + 1.35 = 9.025 out of 10.00
+(1, 1, 1, 9.50, 28.500, 'https://scorevaultstorage.blob.core.windows.net/feedback-json/round-1/score-1.json', 1), -- Innovation (9.5/10 * 30 = 28.5)
+(2, 1, 2, 9.00, 27.000, 'https://scorevaultstorage.blob.core.windows.net/feedback-json/round-1/score-2.json', 1), -- Architecture (9.0/10 * 30 = 27.0)
+(3, 1, 3, 8.50, 21.250, 'https://scorevaultstorage.blob.core.windows.net/feedback-json/round-1/score-3.json', 1), -- Working Demo (8.5/10 * 25 = 21.25)
+(4, 1, 4, 9.00, 13.500, 'https://scorevaultstorage.blob.core.windows.net/feedback-json/round-1/score-4.json', 1); -- Pitch (9.0/10 * 15 = 13.5)
+-- Total Weighted Score = 28.5 + 27.0 + 21.25 + 13.5 = 90.25 out of 100
 SET IDENTITY_INSERT scores OFF;
 
 -- 13. Audit Log Initial Records
