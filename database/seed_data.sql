@@ -12,25 +12,25 @@ INSERT INTO roles (role_id, role_name, description) VALUES
 (3, 'PARTICIPANT', 'Contestant or team lead uploading project submissions');
 SET IDENTITY_INSERT roles OFF;
 
--- 2. Insert Users (Password: 'Pass#2026' bcrypt hashed: $2a$12$e8Z4NkWgW7n8B7... dummy hash)
+-- 2. Insert Users (dummy data only; real bcrypt hashes, cost 12). Demo passwords: admins AdminSecurePass#2026, judges JudgeSecurePass#2026, participants TeamSecurePass#2026. Change them on the live deployment.
 SET IDENTITY_INSERT users ON;
 INSERT INTO users (user_id, role_id, full_name, email, password_hash, affiliation, is_active) VALUES
 -- Admins
-(1, 1, 'Raj Singh', '25LBCS3205@culkomail.in', '$2a$12$K1G6xX8K9Uv1tX8.X5Rwe.yU2jQ48W9N1B6.y2K0C8fN1qX9bV2uC', 'Chandigarh University', 1),
-(2, 1, 'Prince', '25lbcs3005@culkomail.in', '$2a$12$K1G6xX8K9Uv1tX8.X5Rwe.yU2jQ48W9N1B6.y2K0C8fN1qX9bV2uC', 'Chandigarh University', 1),
+(1, 1, 'Event Admin', 'admin@scorevault.culkomail.in', '$2a$12$zl7d.0g9zAAJCwA4xxq0.eNaXnI3Pc97hlQHI0ObvRXaWctx6woKq', 'Chandigarh University', 1),
+(2, 1, 'Event Co-Admin', 'admin2@scorevault.culkomail.in', '$2a$12$zl7d.0g9zAAJCwA4xxq0.eNaXnI3Pc97hlQHI0ObvRXaWctx6woKq', 'Chandigarh University', 1),
 
 -- Judges
-(3, 2, 'Dr. Arvind Sharma (Tech)', 'judge.tech@scorevault.culkomail.in', '$2a$12$K1G6xX8K9Uv1tX8.X5Rwe.yU2jQ48W9N1B6.y2K0C8fN1qX9bV2uC', 'IIT Delhi', 1),
-(4, 2, 'Prof. Meenakshi Sundaram (Dance)', 'judge.dance@scorevault.culkomail.in', '$2a$12$K1G6xX8K9Uv1tX8.X5Rwe.yU2jQ48W9N1B6.y2K0C8fN1qX9bV2uC', 'Kalakshetra Foundation', 1),
-(5, 2, 'Advocate Rohan Verma (Law)', 'judge.law@scorevault.culkomail.in', '$2a$12$K1G6xX8K9Uv1tX8.X5Rwe.yU2jQ48W9N1B6.y2K0C8fN1qX9bV2uC', 'Delhi High Court Bar', 1),
-(6, 2, 'Dr. Kavita Sen (Literature)', 'judge.lit@scorevault.culkomail.in', '$2a$12$K1G6xX8K9Uv1tX8.X5Rwe.yU2jQ48W9N1B6.y2K0C8fN1qX9bV2uC', 'Jadavpur University', 1),
+(3, 2, 'Dr. Arvind Sharma (Tech)', 'judge.tech@scorevault.culkomail.in', '$2a$12$JhJVR7Y4tHwOdGSoH/bA3eB5qkkC0c9KCHIjKuTgeGn/LpMLAIqwu', 'IIT Delhi', 1),
+(4, 2, 'Prof. Meenakshi Sundaram (Dance)', 'judge.dance@scorevault.culkomail.in', '$2a$12$JhJVR7Y4tHwOdGSoH/bA3eB5qkkC0c9KCHIjKuTgeGn/LpMLAIqwu', 'Kalakshetra Foundation', 1),
+(5, 2, 'Advocate Rohan Verma (Law)', 'judge.law@scorevault.culkomail.in', '$2a$12$JhJVR7Y4tHwOdGSoH/bA3eB5qkkC0c9KCHIjKuTgeGn/LpMLAIqwu', 'Delhi High Court Bar', 1),
+(6, 2, 'Dr. Kavita Sen (Literature)', 'judge.lit@scorevault.culkomail.in', '$2a$12$JhJVR7Y4tHwOdGSoH/bA3eB5qkkC0c9KCHIjKuTgeGn/LpMLAIqwu', 'Jadavpur University', 1),
 
 -- Participants
-(7, 3, 'Aman Gupta (AlphaBits Lead)', 'lead.alphabits@culkomail.in', '$2a$12$K1G6xX8K9Uv1tX8.X5Rwe.yU2jQ48W9N1B6.y2K0C8fN1qX9bV2uC', 'BITS Pilani', 1),
-(8, 3, 'Sneha Rao (AlphaBits Member)', 'sneha.rao@bits.edu', '$2a$12$K1G6xX8K9Uv1tX8.X5Rwe.yU2jQ48W9N1B6.y2K0C8fN1qX9bV2uC', 'BITS Pilani', 1),
-(9, 3, 'Kabir Mehta (Rhythm Crew Lead)', 'kabir.rhythm@culkomail.in', '$2a$12$K1G6xX8K9Uv1tX8.X5Rwe.yU2jQ48W9N1B6.y2K0C8fN1qX9bV2uC', 'Delhi University', 1),
-(10, 3, 'Ananya Desai (Lex Justitia Lead)', 'ananya.lex@culkomail.in', '$2a$12$K1G6xX8K9Uv1tX8.X5Rwe.yU2jQ48W9N1B6.y2K0C8fN1qX9bV2uC', 'National Law School Bangalore', 1),
-(11, 3, 'Vikramaditya (Solo Bard)', 'vikram.bard@culkomail.in', '$2a$12$K1G6xX8K9Uv1tX8.X5Rwe.yU2jQ48W9N1B6.y2K0C8fN1qX9bV2uC', 'Ashoka University', 1);
+(7, 3, 'Aman Gupta (AlphaBits Lead)', 'lead.alphabits@culkomail.in', '$2a$12$kQiTeXegOVomohTM7m7JEOBirCT7agoUTsZivEJVHXmAQ5zE6Zx86', 'BITS Pilani', 1),
+(8, 3, 'Sneha Rao (AlphaBits Member)', 'sneha.rao@bits.edu', '$2a$12$kQiTeXegOVomohTM7m7JEOBirCT7agoUTsZivEJVHXmAQ5zE6Zx86', 'BITS Pilani', 1),
+(9, 3, 'Kabir Mehta (Rhythm Crew Lead)', 'kabir.rhythm@culkomail.in', '$2a$12$kQiTeXegOVomohTM7m7JEOBirCT7agoUTsZivEJVHXmAQ5zE6Zx86', 'Delhi University', 1),
+(10, 3, 'Ananya Desai (Lex Justitia Lead)', 'ananya.lex@culkomail.in', '$2a$12$kQiTeXegOVomohTM7m7JEOBirCT7agoUTsZivEJVHXmAQ5zE6Zx86', 'National Law School Bangalore', 1),
+(11, 3, 'Vikramaditya (Solo Bard)', 'vikram.bard@culkomail.in', '$2a$12$kQiTeXegOVomohTM7m7JEOBirCT7agoUTsZivEJVHXmAQ5zE6Zx86', 'Ashoka University', 1);
 SET IDENTITY_INSERT users OFF;
 
 -- 3. Insert Categories
