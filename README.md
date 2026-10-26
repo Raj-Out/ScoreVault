@@ -92,6 +92,7 @@ ScoreVault/
 ├── database/
 │   ├── schema.sql                          # DDL: 13 tables, constraints, indexes, views, stored procedure, audit trigger
 │   ├── integrity_triggers.sql              # 6 triggers: conflict of interest, score locking, validation, immutable audit log
+│   ├── leaderboard_tiebreak.sql            # Leaderboard view with tie-break rules
 │   ├── seed_data.sql                       # Sample data for hackathon, dance, law, and literature (dummy data only)
 │   ├── integrity_tests.sql                 # 13 automated tests (expect T1 to T13 PASS)
 │   └── queries.sql                         # Complex joins, leaderboard queries, aggregation & audit checks
@@ -106,8 +107,9 @@ Run these files, in this order, on an empty database (VS Code with the SQL Serve
 
 1. `database/schema.sql`
 2. `database/integrity_triggers.sql`
-3. `database/seed_data.sql`
-4. `database/integrity_tests.sql` (the Messages tab should show T1 to T13 all PASS)
+3. `database/leaderboard_tiebreak.sql`
+4. `database/seed_data.sql`
+5. `database/integrity_tests.sql` (the Messages tab should show T1 to T13 all PASS)
 
 `schema.sql` begins with `DROP` statements, so use it only on a new or test database.
 

@@ -263,7 +263,7 @@ CREATE NONCLUSTERED INDEX idx_audit_entity ON audit_log(entity_name, entity_id);
 - **Tables joined (6):** `rounds`, `events`, `teams`, `users` (team lead), `judge_assignments`, `scores`.
 - **What counts:** only scores with `is_locked = 1` on assignments with status `SUBMITTED`.
 - **Calculation:** `final_weighted_average_score = SUM(weighted_score) / COUNT(DISTINCT judge)`, on a 0 to 100 scale.
-- **Ranking:** `DENSE_RANK() OVER (PARTITION BY round_id ORDER BY final_weighted_average_score DESC)`.
+- **Ranking and tie-break:** `leaderboard_rank` is a `DENSE_RANK()` per round, ordered by (1) the final score rounded to 2 decimals, higher first; (2) the average score on the rubric's priority criterion, higher first (the criterion with the highest weight, or the first listed if weights are equal); (3) the earlier first submission time. Teams equal on all three share a rank. The view also returns `priority_criterion_score` and `first_submitted_at`, so the reason for an order is visible. The view is defined in `leaderboard_tiebreak.sql`.
 
 **`vw_judge_scoring_variance`** computes each judge's average raw score and standard deviation per event category. It feeds the Power BI report on judge strictness and leniency.
 
@@ -313,7 +313,7 @@ Connections are pooled and reused, so values persist after a request ends. The b
 
 ## 7. Verification
 
-The scripts run in this order on an empty Azure SQL Database (free serverless tier): `schema.sql`, `integrity_triggers.sql`, `seed_data.sql`, `integrity_tests.sql`. Installing the triggers before the seed means the seed data is validated too.
+The scripts run in this order on an empty Azure SQL Database (free serverless tier): `schema.sql`, `integrity_triggers.sql`, `leaderboard_tiebreak.sql`, `seed_data.sql`, `integrity_tests.sql`. Installing the triggers before the seed means the seed data is validated too.
 
 `integrity_tests.sql` contains 13 tests. Each runs in a transaction that is rolled back and prints PASS or FAIL. All 13 passed on the deployed database.
 
@@ -340,3 +340,4 @@ The scripts run in this order on an empty Azure SQL Database (free serverless ti
 - **Audit attribution depends on the backend** setting the session context (Section 6).
 - **Updates and deletes of scores are audited by trigger;** the first insert of a score is not. Locking and round finalization are always logged.
 - **`schema.sql` begins with `DROP` statements** that delete all data. Run it only on a new or test database.
+- **The tie-break priority criterion is the highest-weighted one.** Letting an organiser pick a different priority criterion per event would need an extra column on `criteria` and is a future improvement.

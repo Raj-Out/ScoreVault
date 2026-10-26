@@ -1,6 +1,6 @@
 # ScoreVault: System Design Document
 
-**Document Version:** 1.2 (revised to match the deployed database)  
+**Document Version:** 1.3 (tie-break rule added)  
 **Date:** October 19, 2026 (revised October 22, 2026)  
 **Authors:** Raj Singh (25LBCS3205) & Prince (25LBCS3005)  
 **Course:** Integrated Full-Stack Project (System Design Component - 20 Marks)  
@@ -57,7 +57,7 @@ Traditional event evaluation relies on paper score-sheets or unversioned spreads
 
 #### FR-6: Live Leaderboard, Tie-Breaking & Analytics
 - **FR-6.1:** Leaderboards compute aggregated scores across judges per round.
-- **FR-6.2:** In case of tie, secondary criterion priority rules break the tie (e.g., Code Quality in Hackathons, Legal Reasoning in Moot Court).
+- **FR-6.2:** In case of a tie on the final score, the tie is broken by (1) the average score on the rubric's priority criterion, which is the criterion with the highest weight (for example Innovation in a hackathon rubric or Legal Argument in a moot court rubric), then (2) the earlier submission time. Teams equal on all three share a rank. The rule is implemented in the database view `vw_round_leaderboard`.
 - **FR-6.3:** Leaderboard visibility is toggled by the Admin (Draft, Internal Review, Publicly Published).
 - **FR-6.4:** Power BI embeds and endpoints expose analytics on judge severity/leniency variance.
 
