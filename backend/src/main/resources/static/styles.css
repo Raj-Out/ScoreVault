@@ -1,0 +1,20 @@
+:root { color-scheme: light dark; --accent: #0b5cad; --ok: #1a7f37; --bad: #b42318; }
+* { box-sizing: border-box; }
+body { font-family: system-ui, Segoe UI, Roboto, sans-serif; margin: 0; background: #f4f6f8; color: #1d2430; }
+header { display: flex; justify-content: space-between; align-items: center; padding: 12px 24px; background: var(--accent); color: #fff; }
+header h1 { margin: 0; font-size: 1.3rem; }
+header button { margin-left: 12px; }
+main { max-width: 860px; margin: 24px auto; padding: 0 16px; }
+.card, #login-view { background: #fff; border-radius: 8px; padding: 16px 20px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+label { display: block; margin: 12px 0 4px; font-weight: 600; }
+input, select { width: 100%; padding: 8px; border: 1px solid #b9c2cc; border-radius: 4px; font: inherit; }
+button { margin-top: 12px; padding: 8px 14px; border: 0; border-radius: 4px; background: var(--accent); color: #fff; font: inherit; cursor: pointer; }
+button.secondary { background: #6b7785; }
+.criterion-row { display: grid; grid-template-columns: 3fr 1fr 1fr auto; gap: 8px; align-items: center; margin-bottom: 8px; }
+.criterion-row button { margin-top: 0; }
+.error, .total.bad { color: var(--bad); }
+.total.ok { color: var(--ok); }
+.total { font-weight: 600; }
+table { border-collapse: collapse; width: 100%; margin-top: 8px; }
+th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid #dde3ea; }
+.meta { color: #5a6674; margin: 4px 0 0; }

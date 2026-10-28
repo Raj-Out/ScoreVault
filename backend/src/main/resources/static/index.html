@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ScoreVault</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header>
+    <h1>ScoreVault</h1>
+    <div id="whoami" hidden>
+      <span id="who"></span>
+      <button id="logout" type="button">Log out</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="login-view">
+      <h2>Sign in</h2>
+      <form id="login-form" autocomplete="on">
+        <label for="email">Email</label>
+        <input id="email" type="email" required maxlength="255" autocomplete="username">
+        <label for="password">Password</label>
+        <input id="password" type="password" required maxlength="100" autocomplete="current-password">
+        <button type="submit">Sign in</button>
+        <p id="login-error" class="error" role="alert"></p>
+      </form>
+    </section>
+
+    <section id="app-view" hidden>
+      <section id="create-section" class="card">
+        <h2>Create rubric template</h2>
+        <form id="rubric-form">
+          <label for="category">Event category</label>
+          <select id="category" required></select>
+          <label for="rubric-name">Template name</label>
+          <input id="rubric-name" type="text" required maxlength="150">
+          <label for="rubric-desc">Description (optional)</label>
+          <input id="rubric-desc" type="text" maxlength="500">
+
+          <h3>Criteria</h3>
+          <div id="criteria"></div>
+          <button id="add-criterion" type="button">Add criterion</button>
+          <p id="weight-total" class="total"></p>
+
+          <button type="submit">Save template</button>
+          <p id="rubric-msg" role="status"></p>
+        </form>
+      </section>
+
+      <section>
+        <h2>Rubric templates</h2>
+        <p id="list-note"></p>
+        <div id="rubric-list"></div>
+      </section>
+    </section>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>
