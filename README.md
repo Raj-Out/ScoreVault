@@ -110,6 +110,7 @@ Run these files, in this order, on an empty database (VS Code with the SQL Serve
 3. `database/leaderboard_tiebreak.sql`
 4. `database/seed_data.sql`
 5. `database/integrity_tests.sql` (the Messages tab should show T1 to T13 all PASS)
+6. `database/app_login.sql` (creates the limited `scorevault_app` account the application uses; read the instructions inside the file first)
 
 `schema.sql` begins with `DROP` statements, so use it only on a new or test database.
 

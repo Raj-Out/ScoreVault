@@ -25,7 +25,10 @@ if (-not (Get-Command mvn -ErrorAction SilentlyContinue)) {
 }
 
 # The database password is typed here and kept only in this window's memory. It is never saved to a file.
-$secure = Read-Host "Azure SQL password for scoreadmin" -AsSecureString
+$dbUser = Read-Host "Database user (press Enter for scorevault_app)"
+if ([string]::IsNullOrWhiteSpace($dbUser)) { $dbUser = "scorevault_app" }
+$env:DB_USERNAME = $dbUser
+$secure = Read-Host "Password for $dbUser" -AsSecureString
 $bstr = [Runtime.InteropServices.Marshal]::SecureStringToBSTR($secure)
 $env:DB_PASSWORD = [Runtime.InteropServices.Marshal]::PtrToStringBSTR($bstr)
 [Runtime.InteropServices.Marshal]::ZeroFreeBSTR($bstr)

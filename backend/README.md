@@ -5,7 +5,7 @@ Mid-review feature: **login (JWT) + create / list rubric templates** (admin crea
 ## Run
 1. Install Java once:  `winget install Microsoft.OpenJDK.17`  (then open a NEW PowerShell)
 2. From this folder:  `powershell -ExecutionPolicy Bypass -File .\run.ps1`
-3. Enter the Azure SQL password for `scoreadmin` when asked (it is never written to disk).
+3. Enter the database user (press Enter for `scorevault_app`, the limited account from `database/app_login.sql`) and its password when asked. The password is never written to disk.
 4. Open http://localhost:8080 and sign in with the demo accounts from the main README.
 
 ## Notes

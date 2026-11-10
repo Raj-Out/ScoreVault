@@ -341,3 +341,20 @@ The scripts run in this order on an empty Azure SQL Database (free serverless ti
 - **Updates and deletes of scores are audited by trigger;** the first insert of a score is not. Locking and round finalization are always logged.
 - **`schema.sql` begins with `DROP` statements** that delete all data. Run it only on a new or test database.
 - **The tie-break priority criterion is the highest-weighted one.** Letting an organiser pick a different priority criterion per event would need an extra column on `criteria` and is a future improvement.
+
+---
+
+## 9. Application Database Account (Least Privilege)
+
+The backend does not connect as the server administrator. `database/app_login.sql` creates a contained database user, `scorevault_app`, that exists only inside `scorevault-db` and cannot log in to the server.
+
+| Permission | Granted or denied |
+| :--- | :--- |
+| `SELECT`, `INSERT`, `UPDATE` on all tables | Granted |
+| `EXECUTE` on the stored procedures | Granted |
+| `DELETE` | Only on `team_members` |
+| `UPDATE`, `DELETE` on `audit_log` | Denied (a second layer behind `trg_audit_log_immutable`) |
+| `INSERT`, `UPDATE`, `DELETE` on `roles` and `event_categories` | Denied (fixed reference data) |
+| `ALTER`, `CREATE`, `DROP` | Never granted |
+
+The administrator login (`scoreadmin`) is used only to create and change the schema. The application receives its user name and password from the environment variables `DB_USERNAME` and `DB_PASSWORD`; the password is never stored in the repository.
