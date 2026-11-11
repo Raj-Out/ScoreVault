@@ -30,6 +30,7 @@ public class SecurityConfig {
                     .requestMatchers(HttpMethod.GET, "/", "/index.html", "/app.js", "/styles.css", "/favicon.ico").permitAll()
                     .requestMatchers("/error").permitAll()
                     .requestMatchers(HttpMethod.POST, "/api/v1/auth/login").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/api/v1/rounds", "/api/v1/leaderboard/**").permitAll()
                     .requestMatchers("/api/v1/**").authenticated()
                     .anyRequest().denyAll())
             .exceptionHandling(ex -> ex.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))

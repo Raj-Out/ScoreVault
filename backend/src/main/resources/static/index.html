@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ScoreVault</title>
+  <title>ScoreVault - Multi-Category Evaluation & Auditing Portal</title>
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
@@ -15,45 +15,101 @@
     </div>
   </header>
 
+  <nav class="tabs" id="main-nav">
+    <button type="button" class="tab-btn active" data-tab="tab-leaderboard">Live Leaderboard</button>
+    <button type="button" class="tab-btn" data-tab="tab-rubrics">Rubric Templates</button>
+    <button type="button" class="tab-btn" data-tab="tab-judging" id="btn-tab-judging" hidden>Judge Scoring</button>
+    <button type="button" class="tab-btn" data-tab="tab-assign" id="btn-tab-assign" hidden>Assign Judges</button>
+  </nav>
+
   <main>
-    <section id="login-view">
-      <h2>Sign in</h2>
-      <form id="login-form" autocomplete="on">
-        <label for="email">Email</label>
-        <input id="email" type="email" required maxlength="255" autocomplete="username">
-        <label for="password">Password</label>
-        <input id="password" type="password" required maxlength="100" autocomplete="current-password">
-        <button type="submit">Sign in</button>
-        <p id="login-error" class="error" role="alert"></p>
-      </form>
+    <!-- TAB 1: LIVE LEADERBOARD (PUBLIC) -->
+    <section id="tab-leaderboard" class="tab-content">
+      <div class="card">
+        <h2>Live Round Standings & Tie-Break Rankings</h2>
+        <div style="display:flex; gap:12px; align-items:center; margin-bottom:12px;">
+          <label for="leaderboard-round" style="margin:0; white-space:nowrap;">Select Round:</label>
+          <select id="leaderboard-round" style="max-width:360px;"></select>
+          <button id="refresh-leaderboard" type="button" class="secondary" style="margin:0;">Refresh</button>
+        </div>
+        <p id="leaderboard-meta" class="meta"></p>
+        <div id="leaderboard-table-container"></div>
+      </div>
     </section>
 
-    <section id="app-view" hidden>
-      <section id="create-section" class="card">
-        <h2>Create rubric template</h2>
-        <form id="rubric-form">
-          <label for="category">Event category</label>
-          <select id="category" required></select>
-          <label for="rubric-name">Template name</label>
-          <input id="rubric-name" type="text" required maxlength="150">
-          <label for="rubric-desc">Description (optional)</label>
-          <input id="rubric-desc" type="text" maxlength="500">
-
-          <h3>Criteria</h3>
-          <div id="criteria"></div>
-          <button id="add-criterion" type="button">Add criterion</button>
-          <p id="weight-total" class="total"></p>
-
-          <button type="submit">Save template</button>
-          <p id="rubric-msg" role="status"></p>
+    <!-- TAB 2: RUBRIC TEMPLATES -->
+    <section id="tab-rubrics" class="tab-content" hidden>
+      <section id="login-view" class="card">
+        <h2>Sign in</h2>
+        <form id="login-form" autocomplete="on">
+          <label for="email">Email</label>
+          <input id="email" type="email" required maxlength="255" autocomplete="username">
+          <label for="password">Password</label>
+          <input id="password" type="password" required maxlength="100" autocomplete="current-password">
+          <button type="submit">Sign in</button>
+          <p id="login-error" class="error" role="alert"></p>
         </form>
       </section>
 
-      <section>
-        <h2>Rubric templates</h2>
-        <p id="list-note"></p>
-        <div id="rubric-list"></div>
-      </section>
+      <div id="rubric-app-view" hidden>
+        <section id="create-section" class="card">
+          <h2>Create Rubric Template (Admin Only)</h2>
+          <form id="rubric-form">
+            <label for="category">Event category</label>
+            <select id="category" required></select>
+            <label for="rubric-name">Template name</label>
+            <input id="rubric-name" type="text" required maxlength="150">
+            <label for="rubric-desc">Description (optional)</label>
+            <input id="rubric-desc" type="text" maxlength="500">
+
+            <h3>Criteria</h3>
+            <div id="criteria"></div>
+            <button id="add-criterion" type="button">Add criterion</button>
+            <p id="weight-total" class="total"></p>
+
+            <button type="submit">Save template</button>
+            <p id="rubric-msg" role="status"></p>
+          </form>
+        </section>
+
+        <section class="card">
+          <h2>Active Rubric Templates</h2>
+          <p id="list-note" class="meta"></p>
+          <div id="rubric-list"></div>
+        </section>
+      </div>
+    </section>
+
+    <!-- TAB 3: JUDGE SCORING INTERFACE -->
+    <section id="tab-judging" class="tab-content" hidden>
+      <div class="card">
+        <h2>My Assigned Entries to Evaluate</h2>
+        <p class="meta">Scores automatically lock upon submission and are recorded in the immutable audit log.</p>
+        <div id="judge-tasks-container"></div>
+      </div>
+    </section>
+
+    <!-- TAB 4: ADMIN JUDGE ASSIGNMENT & CONFLICT CHECK -->
+    <section id="tab-assign" class="tab-content" hidden>
+      <div class="card">
+        <h2>Assign Judge with Conflict-of-Interest Validation</h2>
+        <p class="meta">The system uses database triggers to automatically reject assignments where the judge and any team member share the same institution.</p>
+        <form id="assign-form">
+          <label for="assign-round">Round</label>
+          <select id="assign-round" required></select>
+          <label for="assign-judge">Judge</label>
+          <select id="assign-judge" required></select>
+          <label for="assign-team">Target Team</label>
+          <select id="assign-team" required></select>
+          <button type="submit">Verify & Assign Judge</button>
+          <p id="assign-msg" role="status"></p>
+        </form>
+      </div>
+
+      <div class="card">
+        <h2>Current Assignments</h2>
+        <div id="assignments-list-container"></div>
+      </div>
     </section>
   </main>
 
