@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={"darkMode":"class","theme":{"extend":{"colors":{"on-secondary":"#003824","tertiary-fixed-dim":"#ffb95f","on-primary-container":"#00424f","surface-container":"#151e3a","inverse-on-surface":"#262f4c","error-container":"#93000a","on-primary-fixed-variant":"#004e5c","on-tertiary-fixed":"#2a1700","tertiary":"#ffb95f","secondary":"#4edea3","surface-variant":"#2b3450","secondary-fixed-dim":"#4edea3","outline-variant":"#3d494c","primary-fixed":"#acedff","on-error":"#690005","on-error-container":"#ffdad6","surface":"#08122d","surface-dim":"#08122d","on-secondary-fixed-variant":"#005236","on-primary":"#003640","primary-container":"#06b6d4","secondary-container":"#00a572","background":"#08122d","on-surface-variant":"#bcc9cd","secondary-fixed":"#6ffbbe","tertiary-fixed":"#ffddb8","on-secondary-container":"#00311f","on-background":"#dbe1ff","surface-container-lowest":"#030c28","primary":"#4cd7f6","tertiary-container":"#e79400","on-tertiary-container":"#563400","error":"#ffb4ab","inverse-primary":"#00687a","on-surface":"#dbe1ff","on-secondary-fixed":"#002113","inverse-surface":"#dbe1ff","surface-container-low":"#111a36","on-primary-fixed":"#001f26","on-tertiary":"#472a00","surface-container-highest":"#2b3450","outline":"#869397","on-tertiary-fixed-variant":"#653e00","surface-container-high":"#202945","primary-fixed-dim":"#4cd7f6","surface-bright":"#2f3855","surface-tint":"#4cd7f6"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"space-xl":"2.5rem","space-md":"1rem","margin-lg":"2.5rem","gutter-lg":"1.5rem","gutter-sm":"0.75rem","gutter":"1.25rem","space-sm":"0.5rem","margin-sm":"1rem","space-xs":"0.25rem","margin":"1.5rem","space-lg":"1.5rem"},"fontFamily":{"body-md":["Inter"],"body-lg":["Inter"],"label-mono-lg":["JetBrains Mono"],"headline-md":["Inter"],"title-md":["Inter"],"headline-lg":["Inter"],"body-sm":["Inter"],"display-lg-mobile":["Inter"],"display-lg":["Inter"],"label-mono-md":["JetBrains Mono"],"label-mono-sm":["JetBrains Mono"],"headline-lg-mobile":["Inter"]},"fontSize":{"body-md":["14px",{"lineHeight":"20px","fontWeight":"400"}],"body-lg":["16px",{"lineHeight":"24px","fontWeight":"400"}],"label-mono-lg":["14px",{"lineHeight":"20px","letterSpacing":"0.02em","fontWeight":"500"}],"headline-md":["20px",{"lineHeight":"28px","letterSpacing":"-0.005em","fontWeight":"600"}],"title-md":["16px",{"lineHeight":"24px","fontWeight":"600"}],"headline-lg":["28px",{"lineHeight":"36px","letterSpacing":"-0.01em","fontWeight":"600"}],"body-sm":["12px",{"lineHeight":"16px","fontWeight":"400"}],"display-lg-mobile":["30px",{"lineHeight":"38px","letterSpacing":"-0.01em","fontWeight":"700"}],"display-lg":["40px",{"lineHeight":"48px","letterSpacing":"-0.02em","fontWeight":"700"}],"label-mono-md":["12px",{"lineHeight":"16px","letterSpacing":"0.04em","fontWeight":"500"}],"label-mono-sm":["10px",{"lineHeight":"14px","letterSpacing":"0.06em","fontWeight":"500"}],"headline-lg-mobile":["22px",{"lineHeight":"30px","letterSpacing":"0em","fontWeight":"600"}]}}}};</script></head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-low z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col"><div class="h-16 px-gutter flex items-center gap-space-sm bg-surface-container-lowest/60"><div class="w-9 h-9 rounded-lg bg-surface-container-high flex items-center justify-center"><span class="material-symbols-outlined text-primary text-[22px]">shield_locked</span></div><div class="flex flex-col"><span class="font-headline-md text-title-md text-on-surface tracking-tight font-bold">ScoreVault</span><span class="font-label-mono-sm text-label-mono-sm text-outline tracking-wider uppercase">Tamper-Proof Audit</span></div></div><div class="px-space-md py-space-sm"><div class="px-space-sm py-space-xs font-label-mono-sm text-label-mono-sm uppercase text-outline tracking-wider">Adjudication Console</div></div><nav class="flex flex-col px-space-sm gap-space-xs" data-active-classes="bg-surface-container-high text-primary font-title-md"><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="live-leaderboard" href="/leaderboard.html"><span class="material-symbols-outlined text-[20px]">trophy</span><span class="font-title-md text-body-md">Live Leaderboard</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="judge-evaluation-and-scoring" href="/judging.html"><span class="material-symbols-outlined text-[20px]">fact_check</span><span class="font-title-md text-body-md">Judge Evaluation &amp; Scoring</span></a><a aria-current="page" class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg transition-all bg-surface-container-high text-primary font-title-md" data-path="admin-and-audit-ledger" href="/admin.html"><span class="material-symbols-outlined text-[20px]">account_tree</span><span class="font-title-md text-body-md">Admin &amp; Audit Ledger</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="participant-submissions" href="/submissions.html"><span class="material-symbols-outlined text-[20px]">inventory_2</span><span class="font-title-md text-body-md">Participant Submissions</span></a></nav></div><div class="p-space-md m-space-sm rounded-lg bg-surface-container-lowest/80 flex flex-col gap-space-sm"><div class="flex items-center justify-between"><span class="font-label-mono-sm text-label-mono-sm text-outline tracking-wider uppercase">DB Node Protocol</span><span class="inline-flex items-center gap-1 font-label-mono-sm text-label-mono-sm text-secondary"><span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span>Online</span></div><div class="flex flex-col gap-space-xs"><div class="flex justify-between items-center text-body-sm"><span class="text-on-surface-variant font-body-sm">Cluster Consensus</span><span class="font-label-mono-sm text-label-mono-sm text-on-surface">100% (7/7 Nodes)</span></div><div class="flex justify-between items-center text-body-sm"><span class="text-on-surface-variant font-body-sm">Block Finality</span><span class="font-label-mono-sm text-label-mono-sm text-primary">312 ms</span></div><div class="flex justify-between items-center text-body-sm"><span class="text-on-surface-variant font-body-sm">Ledger Hash</span><span class="font-label-mono-sm text-label-mono-sm text-outline-variant font-semibold">0x8f2c...4e19</span></div></div></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-16 bg-surface/80 backdrop-blur-xl z-40 shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 w-full px-gutter-lg flex items-center justify-between"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs px-space-md py-1 rounded-full bg-surface-container-high"><span class="w-2 h-2 rounded-full bg-secondary animate-ping"></span><span class="material-symbols-outlined text-secondary text-[16px]">verified</span><span class="font-label-mono-sm text-label-mono-sm text-secondary font-medium tracking-wide uppercase">Consensus: Sealed &amp; Syncing</span></div><div class="hidden xl:flex items-center gap-space-xs px-space-md py-1 rounded-full bg-surface-container"><span class="material-symbols-outlined text-primary text-[16px]">network_check</span><span class="font-label-mono-sm text-label-mono-sm text-primary font-medium tracking-wide uppercase">Network Integrity: 99.98%</span></div></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-surface-container-low"><span class="material-symbols-outlined text-outline text-[18px]">encrypted</span><span class="font-label-mono-sm text-label-mono-sm text-on-surface-variant">Epoch #4029</span></div><div class="flex items-center gap-space-sm pl-space-sm"><div class="flex flex-col text-right"><span class="font-title-md text-body-md text-on-surface font-semibold leading-tight">Dr. Marcus Vance</span><div class="flex items-center justify-end gap-1"><span class="px-1.5 py-0.5 rounded bg-primary/10 text-primary font-label-mono-sm text-label-mono-sm font-semibold uppercase">Lead Auditor</span><span class="px-1.5 py-0.5 rounded bg-surface-variant text-outline font-label-mono-sm text-label-mono-sm uppercase">Admin</span></div></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></div></header><main class="w-full pt-16 bg-surface min-h-screen px-gutter-lg py-gutter"><div class="flex flex-col w-full gap-space-lg">
+<!-- TOP EXECUTIVE TELEMETRY ROW (4 Data Density Cards) -->
+<section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-gutter">
+<!-- Metric 1: Active Tracks -->
+<div class="relative overflow-hidden rounded-xl bg-surface-container-low p-space-md shadow-md">
+<div class="absolute -right-6 -bottom-6 w-28 h-28 rounded-full bg-primary/5 blur-2xl pointer-events-none"></div>
+<div class="flex items-center justify-between">
+<span class="font-label-mono-sm text-label-mono-sm text-outline uppercase tracking-wider">Telemetry // Epoch 4029</span>
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-surface-container-high text-primary font-label-mono-sm text-label-mono-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+          STREAMING
+        </span>
+</div>
+<div class="mt-space-sm flex items-baseline justify-between">
+<div>
+<div class="font-headline-lg text-headline-lg font-bold text-on-surface tracking-tight">4 <span class="text-on-surface-variant font-headline-md text-headline-md">/ 4 Tracks</span></div>
+<div class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Active Rounds Concurrent Sync</div>
+</div>
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[22px]">sync_alt</span>
+</div>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between font-label-mono-sm text-label-mono-sm bg-surface-container-lowest/60 rounded px-2.5 py-1.5">
+<span class="text-outline">Tracks: Hack · Moot · Dance · Lit</span>
+<span class="text-secondary font-semibold">100% Flow</span>
+</div>
+</div>
+<!-- Metric 2: Assigned Jury Quorum -->
+<div class="relative overflow-hidden rounded-xl bg-surface-container-low p-space-md shadow-md">
+<div class="absolute -right-6 -bottom-6 w-28 h-28 rounded-full bg-secondary/5 blur-2xl pointer-events-none"></div>
+<div class="flex items-center justify-between">
+<span class="font-label-mono-sm text-label-mono-sm text-outline uppercase tracking-wider">Jury Consensus</span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-secondary/15 text-secondary font-label-mono-sm text-label-mono-sm font-semibold">
+<span class="material-symbols-outlined text-[13px]">check_circle</span>
+          FULL QUORUM
+        </span>
+</div>
+<div class="mt-space-sm flex items-baseline justify-between">
+<div>
+<div class="font-headline-lg text-headline-lg font-bold text-on-surface tracking-tight">32 <span class="text-on-surface-variant font-headline-md text-headline-md">/ 32</span></div>
+<div class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">100% Cleared · Zero Pending</div>
+</div>
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[22px]">gavel</span>
+</div>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between font-label-mono-sm text-label-mono-sm bg-surface-container-lowest/60 rounded px-2.5 py-1.5">
+<span class="text-outline">Biometric Passports Verified</span>
+<span class="text-secondary font-semibold">32 Signatures</span>
+</div>
+</div>
+<!-- Metric 3: Ingestion Rate -->
+<div class="relative overflow-hidden rounded-xl bg-surface-container-low p-space-md shadow-md">
+<div class="absolute -right-6 -bottom-6 w-28 h-28 rounded-full bg-primary-container/10 blur-2xl pointer-events-none"></div>
+<div class="flex items-center justify-between">
+<span class="font-label-mono-sm text-label-mono-sm text-outline uppercase tracking-wider">Ingestion Pipeline</span>
+<span class="inline-flex items-center gap-1 text-secondary font-label-mono-sm text-label-mono-sm">
+<span class="material-symbols-outlined text-[14px]">trending_up</span>
+          +2.4%/min
+        </span>
+</div>
+<div class="mt-space-sm flex items-baseline justify-between">
+<div>
+<div class="font-headline-lg text-headline-lg font-bold text-primary tracking-tight">94.2%</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Score Payload Delta</div>
+</div>
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[22px]">data_thresholding</span>
+</div>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between font-label-mono-sm text-label-mono-sm bg-surface-container-lowest/60 rounded px-2.5 py-1.5">
+<span class="text-outline">Final Block Window</span>
+<span class="text-primary font-semibold">T-04:18 to Seal</span>
+</div>
+</div>
+<!-- Metric 4: STRIDE Anomaly Flags -->
+<div class="relative overflow-hidden rounded-xl bg-surface-container-low p-space-md shadow-md">
+<div class="absolute -right-6 -bottom-6 w-28 h-28 rounded-full bg-secondary/5 blur-2xl pointer-events-none"></div>
+<div class="flex items-center justify-between">
+<span class="font-label-mono-sm text-label-mono-sm text-outline uppercase tracking-wider">STRIDE Threat Engine</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-secondary font-label-mono-sm text-label-mono-sm font-semibold">
+          PASSED
+        </span>
+</div>
+<div class="mt-space-sm flex items-baseline justify-between">
+<div>
+<div class="font-headline-lg text-headline-lg font-bold text-secondary tracking-tight">0 <span class="text-on-surface-variant font-headline-md text-headline-md">Breaches</span></div>
+<div class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Automated Heuristics Validated</div>
+</div>
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[22px]">security</span>
+</div>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between font-label-mono-sm text-label-mono-sm bg-surface-container-lowest/60 rounded px-2.5 py-1.5">
+<span class="text-outline">ZK Verification Proofs</span>
+<span class="text-secondary font-semibold">1,280 / 1,280 Clean</span>
+</div>
+</div>
+</section>
+<!-- MAIN DENSE GRID LAYOUT (2/3 Left + 1/3 Right) -->
+<div class="grid grid-cols-1 xl:grid-cols-3 gap-gutter items-start">
+<!-- LEFT 2/3 COLUMN: TRACK MATRIX & CRYPTO AUDIT LEDGER -->
+<div class="xl:col-span-2 flex flex-col gap-space-lg min-w-0">
+<!-- SECTION 1: LIVE QUORUM & TRACK SUBMISSION MATRIX -->
+<section class="rounded-xl bg-surface-container-low p-space-md shadow-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm mb-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">table_chart</span>
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md font-bold text-on-surface">Track Quorum &amp; Adjudication Flow</h2>
+<span class="font-label-mono-sm text-label-mono-sm text-outline">Inter-Collegiate Tier I Finals · Synced in Realtime</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs">
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-high hover:bg-surface-container text-primary hover:text-on-surface font-label-mono-sm text-label-mono-sm font-semibold flex items-center gap-1.5 transition-colors" id="ping-btn" onclick="pingAllJudges()">
+<span class="material-symbols-outlined text-[16px]">sensors</span>
+              Ping All Pending (3)
+            </button>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container text-on-surface font-label-mono-sm text-label-mono-sm font-semibold flex items-center gap-1 hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[16px]">filter_list</span>
+              Filter
+            </button>
+</div>
+</div>
+<!-- Matrix Table -->
+<div class="overflow-x-auto rounded-lg bg-surface-container-lowest/50">
+<table class="w-full text-left font-body-sm text-body-sm">
+<thead>
+<tr class="bg-surface-container text-outline font-label-mono-sm text-label-mono-sm uppercase tracking-wider">
+<th class="py-2.5 px-3">Track / Discipline</th>
+<th class="py-2.5 px-3">Jury Quorum</th>
+<th class="py-2.5 px-3 w-48">Submission Rate</th>
+<th class="py-2.5 px-3">Pending Alerts</th>
+<th class="py-2.5 px-3 text-right">Consensus Seal</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container">
+<!-- Row 1: Hackathon -->
+<tr class="hover:bg-surface-container/40 transition-colors">
+<td class="py-3 px-3">
+<div class="flex items-center gap-2.5">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<div>
+<div class="font-title-md text-title-md text-on-surface font-semibold leading-tight">Algorithmic Hackathon</div>
+<div class="font-label-mono-sm text-label-mono-sm text-outline">Track #01 · Hall A-C</div>
+</div>
+</div>
+</td>
+<td class="py-3 px-3 font-label-mono-md text-label-mono-md text-on-surface">
+                  8 / 8 <span class="text-secondary font-label-mono-sm">(100%)</span>
+</td>
+<td class="py-3 px-3">
+<div class="flex items-center gap-2">
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-secondary h-full rounded-full" style="width: 100%"></div>
+</div>
+<span class="font-label-mono-sm text-label-mono-sm text-secondary font-semibold">100%</span>
+</div>
+</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 font-label-mono-sm text-label-mono-sm text-secondary">
+<span class="material-symbols-outlined text-[14px]">done_all</span> All Submitted
+                  </span>
+</td>
+<td class="py-3 px-3 text-right">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-secondary/15 text-secondary font-label-mono-sm text-label-mono-sm font-semibold">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+                    SEALED #0xA81
+                  </span>
+</td>
+</tr>
+<!-- Row 2: Moot Court -->
+<tr class="hover:bg-surface-container/40 transition-colors">
+<td class="py-3 px-3">
+<div class="flex items-center gap-2.5">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<div>
+<div class="font-title-md text-title-md text-on-surface font-semibold leading-tight">National Moot Court</div>
+<div class="font-label-mono-sm text-label-mono-sm text-outline">Track #02 · Chambers II</div>
+</div>
+</div>
+</td>
+<td class="py-3 px-3 font-label-mono-md text-label-mono-md text-on-surface">
+                  8 / 8 <span class="text-primary font-label-mono-sm">(In Bench)</span>
+</td>
+<td class="py-3 px-3">
+<div class="flex items-center gap-2">
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 87.5%"></div>
+</div>
+<span class="font-label-mono-sm text-label-mono-sm text-primary font-semibold">87.5%</span>
+</div>
+</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-tertiary-container/30 text-tertiary font-label-mono-sm text-label-mono-sm">
+<span class="material-symbols-outlined text-[14px]">timer</span>
+                    1 Pending: J-07 (Rebuttal)
+                  </span>
+</td>
+<td class="py-3 px-3 text-right">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-primary/10 text-primary font-label-mono-sm text-label-mono-sm font-semibold">
+<span class="material-symbols-outlined text-[14px]">hourglass_top</span>
+                    AWAITING FINAL
+                  </span>
+</td>
+</tr>
+<!-- Row 3: Western Classical & Folk Dance -->
+<tr class="hover:bg-surface-container/40 transition-colors">
+<td class="py-3 px-3">
+<div class="flex items-center gap-2.5">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<div>
+<div class="font-title-md text-title-md text-on-surface font-semibold leading-tight">Choreography &amp; Folk Dance</div>
+<div class="font-label-mono-sm text-label-mono-sm text-outline">Track #03 · Main Auditorium</div>
+</div>
+</div>
+</td>
+<td class="py-3 px-3 font-label-mono-md text-label-mono-md text-on-surface">
+                  8 / 8 <span class="text-primary font-label-mono-sm">(In Bench)</span>
+</td>
+<td class="py-3 px-3">
+<div class="flex items-center gap-2">
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 75%"></div>
+</div>
+<span class="font-label-mono-sm text-label-mono-sm text-primary font-semibold">75.0%</span>
+</div>
+</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-tertiary-container/30 text-tertiary font-label-mono-sm text-label-mono-sm">
+<span class="material-symbols-outlined text-[14px]">timer</span>
+                    2 Pending: J-02, J-05
+                  </span>
+</td>
+<td class="py-3 px-3 text-right">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-primary/10 text-primary font-label-mono-sm text-label-mono-sm font-semibold">
+<span class="material-symbols-outlined text-[14px]">autorenew</span>
+                    COMPUTING
+                  </span>
+</td>
+</tr>
+<!-- Row 4: Literary Arts & Debate -->
+<tr class="hover:bg-surface-container/40 transition-colors">
+<td class="py-3 px-3">
+<div class="flex items-center gap-2.5">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<div>
+<div class="font-title-md text-title-md text-on-surface font-semibold leading-tight">Parliamentary Literature</div>
+<div class="font-label-mono-sm text-label-mono-sm text-outline">Track #04 · Senate Library</div>
+</div>
+</div>
+</td>
+<td class="py-3 px-3 font-label-mono-md text-label-mono-md text-on-surface">
+                  8 / 8 <span class="text-secondary font-label-mono-sm">(100%)</span>
+</td>
+<td class="py-3 px-3">
+<div class="flex items-center gap-2">
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-secondary h-full rounded-full" style="width: 100%"></div>
+</div>
+<span class="font-label-mono-sm text-label-mono-sm text-secondary font-semibold">100%</span>
+</div>
+</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 font-label-mono-sm text-label-mono-sm text-secondary">
+<span class="material-symbols-outlined text-[14px]">done_all</span> All Submitted
+                  </span>
+</td>
+<td class="py-3 px-3 text-right">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-secondary/15 text-secondary font-label-mono-sm text-label-mono-sm font-semibold">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+                    SEALED #0xA84
+                  </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- SECTION 2: CRYPTOGRAPHIC AUDIT TRAIL (APPEND-ONLY LEDGER FEED) -->
+<section class="rounded-xl bg-surface-container-low p-space-md shadow-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm mb-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded bg-surface-container-high flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[20px]">account_tree</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h2 class="font-headline-md text-headline-md font-bold text-on-surface">Cryptographic Audit Trail</h2>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-primary font-label-mono-sm text-label-mono-sm">WORM Storage</span>
+</div>
+<span class="font-label-mono-sm text-label-mono-sm text-outline">Real-time Append-Only Event Bus · SHA-256 Validated</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs">
+<button class="px-3 py-1.5 rounded-lg bg-primary text-on-primary font-label-mono-sm text-label-mono-sm font-semibold flex items-center gap-1.5 hover:bg-primary-fixed transition-colors shadow-sm" onclick="exportMerkleRoot()">
+<span class="material-symbols-outlined text-[16px]">file_download</span>
+              Export Raw Merkle Root Batch
+            </button>
+</div>
+</div>
+<!-- Ledger Feed Table -->
+<div class="overflow-x-auto rounded-lg bg-surface-container-lowest/70">
+<table class="w-full text-left font-body-sm text-body-sm">
+<thead>
+<tr class="bg-surface-container text-outline font-label-mono-sm text-label-mono-sm uppercase tracking-wider">
+<th class="py-2.5 px-3">Timestamp (UTC)</th>
+<th class="py-2.5 px-3">Block Hash Slice</th>
+<th class="py-2.5 px-3">Event Signature</th>
+<th class="py-2.5 px-3">Actor / Authority</th>
+<th class="py-2.5 px-3 text-right">Integrity</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container font-label-mono-sm text-label-mono-sm" id="ledger-stream">
+<!-- Event Item 1 -->
+<tr class="hover:bg-surface-container/40 transition-colors">
+<td class="py-2.5 px-3 text-on-surface-variant font-label-mono-sm">
+                  14:38:22.408
+                </td>
+<td class="py-2.5 px-3">
+<div class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-[14px]">link</span>
+<span>0x9f1a...b3c8</span>
+</div>
+</td>
+<td class="py-2.5 px-3 text-on-surface">
+<span class="px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface font-semibold">sp_finalize_and_lock_round_scores</span>
+<div class="text-outline text-[10px] mt-0.5">Payload: Track#04 - Round 03 Matrix Finalized</div>
+</td>
+<td class="py-2.5 px-3">
+<div class="text-on-surface font-semibold">System Consensus Node #02</div>
+<div class="text-outline text-[10px]">PK: ed25519:78e2...014c</div>
+</td>
+<td class="py-2.5 px-3 text-right">
+<span class="inline-flex items-center gap-1 text-secondary font-semibold">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+                    SEALED
+                  </span>
+</td>
+</tr>
+<!-- Event Item 2 -->
+<tr class="hover:bg-surface-container/40 transition-colors">
+<td class="py-2.5 px-3 text-on-surface-variant font-label-mono-sm">
+                  14:36:11.902
+                </td>
+<td class="py-2.5 px-3">
+<div class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-[14px]">link</span>
+<span>0x4e2c...118d</span>
+</div>
+</td>
+<td class="py-2.5 px-3 text-on-surface">
+<span class="px-1.5 py-0.5 rounded bg-surface-container-high text-primary font-semibold">Azure Blob Artifact SHA-256 Validation</span>
+<div class="text-outline text-[10px] mt-0.5">SHA: c029f...4401 | Raw Audio Recording Moot Court</div>
+</td>
+<td class="py-2.5 px-3">
+<div class="text-on-surface font-semibold">Blob Auditor Worker #09</div>
+<div class="text-outline text-[10px]">Automated Ingestion Daemon</div>
+</td>
+<td class="py-2.5 px-3 text-right">
+<span class="inline-flex items-center gap-1 text-secondary font-semibold">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                    MATCHED
+                  </span>
+</td>
+</tr>
+<!-- Event Item 3 -->
+<tr class="hover:bg-surface-container/40 transition-colors">
+<td class="py-2.5 px-3 text-on-surface-variant font-label-mono-sm">
+                  14:31:05.112
+                </td>
+<td class="py-2.5 px-3">
+<div class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-[14px]">link</span>
+<span>0x7d00...9a45</span>
+</div>
+</td>
+<td class="py-2.5 px-3 text-on-surface">
+<span class="px-1.5 py-0.5 rounded bg-tertiary-container/20 text-tertiary font-semibold">Round Extension Override (+5 min)</span>
+<div class="text-outline text-[10px] mt-0.5">Reason: Jury J-07 Network Latency Reconnect</div>
+</td>
+<td class="py-2.5 px-3">
+<div class="text-on-surface font-semibold">Dr. Marcus Vance</div>
+<div class="text-outline text-[10px]">Lead Auditor (SuperAdmin MFA)</div>
+</td>
+<td class="py-2.5 px-3 text-right">
+<span class="inline-flex items-center gap-1 text-tertiary font-semibold">
+<span class="material-symbols-outlined text-[14px]">assignment_turned_in</span>
+                    OVERRIDDEN
+                  </span>
+</td>
+</tr>
+<!-- Event Item 4 -->
+<tr class="hover:bg-surface-container/40 transition-colors">
+<td class="py-2.5 px-3 text-on-surface-variant font-label-mono-sm">
+                  14:27:49.880
+                </td>
+<td class="py-2.5 px-3">
+<div class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-[14px]">link</span>
+<span>0x1b44...ff82</span>
+</div>
+</td>
+<td class="py-2.5 px-3 text-on-surface">
+<span class="px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface font-semibold">trg_prevent_coi_assignment Intercept</span>
+<div class="text-outline text-[10px] mt-0.5">Alumni collision prevented: Prof. A. Roy -&gt; Team Delta</div>
+</td>
+<td class="py-2.5 px-3">
+<div class="text-on-surface font-semibold">Postgres Rule Guard Engine</div>
+<div class="text-outline text-[10px]">Security Kernel SP #89</div>
+</td>
+<td class="py-2.5 px-3 text-right">
+<span class="inline-flex items-center gap-1 text-secondary font-semibold">
+<span class="material-symbols-outlined text-[14px]">shield</span>
+                    DIVERTED
+                  </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+<!-- RIGHT 1/3 COLUMN: COI MONITOR & AUDIT WAR-ROOM ACTIONS -->
+<div class="xl:col-span-1 flex flex-col gap-space-lg">
+<!-- WIDGET 1: CONFLICT-OF-INTEREST (COI) RULE GUARD MONITOR -->
+<section class="rounded-xl bg-surface-container-low p-space-md shadow-md">
+<div class="flex items-center justify-between pb-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">policy</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md font-bold text-on-surface">COI Rule Guard Monitor</h3>
+<span class="font-label-mono-sm text-label-mono-sm text-outline">trg_prevent_coi_assignment</span>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-secondary/15 text-secondary font-label-mono-sm text-label-mono-sm font-semibold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+            ACTIVE
+          </span>
+</div>
+<!-- Visual Flow Graphic -->
+<div class="mt-space-sm p-space-sm rounded-lg bg-surface-container-lowest/80 flex flex-col gap-space-sm">
+<div class="flex items-center justify-between text-body-sm">
+<span class="text-on-surface-variant">Intercepted Institutional Collisions</span>
+<span class="font-label-mono-md text-label-mono-md text-on-surface font-bold">14 Total</span>
+</div>
+<div class="flex items-center justify-between text-body-sm">
+<span class="text-on-surface-variant">Automated Reroutes Handled</span>
+<span class="font-label-mono-md text-label-mono-md text-secondary font-bold">14 Resolved (100%)</span>
+</div>
+<div class="flex items-center justify-between text-body-sm">
+<span class="text-on-surface-variant">Active Manual Flags</span>
+<span class="font-label-mono-md text-label-mono-md text-tertiary font-bold">0 Pending Admin Gate</span>
+</div>
+</div>
+<!-- Recent COI Traps List -->
+<div class="mt-space-md flex flex-col gap-space-xs">
+<span class="font-label-mono-sm text-label-mono-sm uppercase text-outline tracking-wider">Latest Interceptions</span>
+<div class="p-2.5 rounded bg-surface-container flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="font-label-mono-sm text-label-mono-sm text-primary font-semibold">TRAP #COI-409</span>
+<span class="font-label-mono-sm text-label-mono-sm text-outline">12m ago</span>
+</div>
+<div class="font-body-sm text-body-sm text-on-surface">Judge Dr. Sarah Lin (MIT Alum) prevented from scoring Team Apex (MIT affiliated).</div>
+<div class="flex items-center justify-between mt-1 pt-1 bg-surface-container-lowest/50 px-2 py-1 rounded">
+<span class="font-label-mono-sm text-label-mono-sm text-secondary flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">swap_horiz</span>
+                Rerouted to Stanford Bench
+              </span>
+<span class="font-label-mono-sm text-label-mono-sm text-outline">Auto-Enforced</span>
+</div>
+</div>
+<div class="p-2.5 rounded bg-surface-container flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="font-label-mono-sm text-label-mono-sm text-primary font-semibold">TRAP #COI-408</span>
+<span class="font-label-mono-sm text-label-mono-sm text-outline">48m ago</span>
+</div>
+<div class="font-body-sm text-body-sm text-on-surface">Judge Prof. K. Verma flagged: Co-author on dataset used in Hackathon submission.</div>
+<div class="flex items-center justify-between mt-1 pt-1 bg-surface-container-lowest/50 px-2 py-1 rounded">
+<span class="font-label-mono-sm text-label-mono-sm text-secondary flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">swap_horiz</span>
+                Bench Swap Approved
+              </span>
+<span class="font-label-mono-sm text-label-mono-sm text-outline">Auto-Enforced</span>
+</div>
+</div>
+</div>
+<!-- Manual COI Override Gate -->
+<div class="mt-space-md pt-space-sm bg-surface-container-lowest/40 p-2.5 rounded-lg">
+<div class="flex items-center justify-between mb-2">
+<span class="font-label-mono-sm text-label-mono-sm uppercase text-outline">Manual COI Override Gate</span>
+<span class="font-label-mono-sm text-label-mono-sm text-tertiary flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">lock_clock</span>
+              Dual-MFA Required
+            </span>
+</div>
+<button class="w-full py-2 px-3 rounded bg-surface-container hover:bg-surface-container-high text-on-surface font-label-mono-sm text-label-mono-sm font-semibold flex items-center justify-center gap-2 transition-colors" onclick="openCOIGate()">
+<span class="material-symbols-outlined text-[16px]">vpn_key</span>
+            Request Compliance Bypass Ticket
+          </button>
+</div>
+</section>
+<!-- WIDGET 2: AUDIT WAR-ROOM ACTIONS (HIGH IMPACT COMMAND CONSOLE) -->
+<section class="rounded-xl bg-surface-container-low p-space-md shadow-md flex flex-col gap-space-md">
+<div class="flex items-center gap-space-sm pb-space-xs">
+<div class="w-8 h-8 rounded bg-surface-container-high flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-[20px]">local_police</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md font-bold text-on-surface">Audit War-Room Actions</h3>
+<span class="font-label-mono-sm text-label-mono-sm text-outline">High-Security Administrative Primaries</span>
+</div>
+</div>
+<div class="flex flex-col gap-space-sm">
+<!-- Button 1: Freeze Protocol (Emergency) -->
+<button class="w-full py-2.5 px-4 rounded-lg bg-error-container/40 hover:bg-error-container/60 text-error font-title-md text-body-md font-semibold flex items-center justify-between transition-colors shadow-sm" onclick="emergencyFreezePrompt()">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">emergency_home</span>
+<span>Trigger Emergency Round Freeze</span>
+</div>
+<span class="px-1.5 py-0.5 rounded bg-error/20 font-label-mono-sm text-label-mono-sm uppercase">Global Halt</span>
+</button>
+<!-- Button 2: Power BI Variance Anomaly Report -->
+<button class="w-full py-2.5 px-4 rounded-lg bg-surface-container-high hover:bg-surface-container text-on-surface font-title-md text-body-md font-semibold flex items-center justify-between transition-colors shadow-sm" id="report-btn" onclick="generateAnomalyReport()">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">query_stats</span>
+<span>Generate Power BI Variance Report</span>
+</div>
+<span class="font-label-mono-sm text-label-mono-sm text-primary font-semibold">Z-Score ±2.5</span>
+</button>
+<!-- Button 3: Batch Lock Completed Rounds -->
+<button class="w-full py-2.5 px-4 rounded-lg bg-secondary-container hover:bg-secondary text-on-secondary font-title-md text-body-md font-bold flex items-center justify-between transition-colors shadow-md" onclick="batchLockRounds()">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">lock_reset</span>
+<span>Batch Lock All Completed Rounds</span>
+</div>
+<span class="px-1.5 py-0.5 rounded bg-on-secondary/15 font-label-mono-sm text-label-mono-sm uppercase">2 Ready</span>
+</button>
+</div>
+<!-- Inline Audit Status Feed Mini-Block -->
+<div class="p-space-sm rounded-lg bg-surface-container-lowest/60 flex flex-col gap-space-xs font-label-mono-sm text-label-mono-sm">
+<div class="flex justify-between items-center text-outline">
+<span>Merkle Tree Root Depth</span>
+<span class="text-on-surface font-bold">16 Levels (Clean)</span>
+</div>
+<div class="flex justify-between items-center text-outline">
+<span>Z-Score Variance Threshold</span>
+<span class="text-primary font-bold">Max σ = 1.18 (Nominal)</span>
+</div>
+<div class="flex justify-between items-center text-outline">
+<span>Cryptographic Session TTL</span>
+<span class="text-secondary font-bold">01h 42m remaining</span>
+</div>
+</div>
+</section>
+<!-- PHOTO/VERIFICATION ARTIFACT CARD -->
+<div class="rounded-xl bg-surface-container-low p-space-md shadow-md flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-mono-sm text-label-mono-sm text-outline uppercase tracking-wider">Live Adjudication Physical Chamber</span>
+<span class="inline-flex items-center gap-1 font-label-mono-sm text-label-mono-sm text-secondary">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> Live Cam 02
+          </span>
+</div>
+<div class="w-full h-36 bg-cover bg-center rounded-lg relative overflow-hidden" data-alt="A darkened technical command center war room with collegiate judges and compliance auditors sitting in front of high-contrast dual monitors displaying live cryptographic score ledgers and biometric verification logs, ambient cyan and deep navy lighting, high-tech secure atmosphere" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAI9uNl9Nfoqq9BdSNcHlYpBheR6NkU88D1WppT6mEjPqCHZHQGz7IQ_pj2-_6wKPVySlfr6HPuElhmj3pT5s1Y7XGi_0wAst2xO_JIqpij5EWoFiOelJF1acZ3FlPttkxePX1uCpvLbWgrVsFwosfhU1fsFmCRwBlokVYERLn5Zz5eNnRqiIRNGmCp-jugATsOfN8myGJnHmwJrU6vnox0G5qWBkxTeB8EBn0bICQ')">
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest/90 via-surface-container-lowest/30 to-transparent flex items-end p-2.5">
+<span class="font-label-mono-sm text-label-mono-sm text-on-surface">Auditorium Chamber Alpha // SuperAdmin Monitoring Feeds</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- INTERACTIVE DIALOG MODAL: COI BYPASS TICKET -->
+<dialog class="backdrop:bg-surface-container-lowest/80 bg-surface-container-low text-on-surface p-space-lg rounded-xl max-w-lg w-full shadow-2xl mx-auto my-auto" id="coi-dialog">
+<div class="flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2 text-tertiary">
+<span class="material-symbols-outlined text-[24px]">security_update_warning</span>
+<span class="font-headline-md text-headline-md font-bold">Compliance Override Gate</span>
+</div>
+<button class="text-outline hover:text-on-surface" onclick="closeCOIGate()">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">
+        Manually bypassing the Conflict-of-Interest trigger <code class="text-primary font-label-mono-sm">trg_prevent_coi_assignment</code> requires a cryptographically signed justification and dual-lead administrator MFA acknowledgment. This action is permanently committed to the immutable audit ledger.
+      </div>
+<div class="flex flex-col gap-2">
+<label class="font-label-mono-sm text-label-mono-sm uppercase text-outline">Target Judge ID / Track</label>
+<input class="w-full bg-surface-container px-3 py-2 rounded text-on-surface font-label-mono-sm text-label-mono-sm" readonly="" type="text" value="J-07 (Moot Court Chambers II)"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-mono-sm text-label-mono-sm uppercase text-outline">Auditor Justification (Mandatory)</label>
+<textarea class="w-full bg-surface-container px-3 py-2 rounded text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-1 focus:ring-primary" id="coi-reason" placeholder="State reason for manual exception..." rows="2"></textarea>
+</div>
+<div class="flex items-center justify-end gap-space-sm pt-space-xs">
+<button class="px-4 py-2 rounded bg-surface-container text-on-surface hover:bg-surface-container-high font-label-mono-sm text-label-mono-sm" onclick="closeCOIGate()">
+          Cancel
+        </button>
+<button class="px-4 py-2 rounded bg-tertiary text-on-tertiary font-label-mono-sm text-label-mono-sm font-bold hover:brightness-110" onclick="submitCOIOverride()">
+          Sign &amp; Inject Override
+        </button>
+</div>
+</div>
+</dialog>
+<!-- INTERACTIVE TOAST NOTIFICATION BANNER -->
+<div class="fixed bottom-6 right-6 transform translate-y-32 transition-transform duration-300 z-50 rounded-lg bg-surface-container-high p-space-md shadow-2xl flex items-center gap-space-md" id="toast-banner">
+<div class="w-8 h-8 rounded-full bg-secondary/20 text-secondary flex items-center justify-center" id="toast-icon">
+<span class="material-symbols-outlined text-[20px]">check</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md text-on-surface font-bold" id="toast-title">Consensus Alert</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant" id="toast-msg">Command executed successfully.</span>
+</div>
+</div>
+<script>
+    function showToast(title, msg, isError = false) {
+      const banner = document.getElementById('toast-banner');
+      const titleEl = document.getElementById('toast-title');
+      const msgEl = document.getElementById('toast-msg');
+      const iconContainer = document.getElementById('toast-icon');
+
+      titleEl.innerText = title;
+      msgEl.innerText = msg;
+      
+      if (isError) {
+        iconContainer.className = "w-8 h-8 rounded-full bg-error-container text-error flex items-center justify-center";
+        iconContainer.innerHTML = '<span class="material-symbols-outlined text-[20px]">warning</span>';
+      } else {
+        iconContainer.className = "w-8 h-8 rounded-full bg-secondary/20 text-secondary flex items-center justify-center";
+        iconContainer.innerHTML = '<span class="material-symbols-outlined text-[20px]">check</span>';
+      }
+
+      banner.classList.remove('translate-y-32');
+      setTimeout(() => {
+        banner.classList.add('translate-y-32');
+      }, 4000);
+    }
+
+    function pingAllJudges() {
+      const btn = document.getElementById('ping-btn');
+      btn.innerHTML = '<span class="material-symbols-outlined text-[16px] animate-spin">sync</span> Broadcasting...';
+      btn.disabled = true;
+
+      setTimeout(() => {
+        btn.innerHTML = '<span class="material-symbols-outlined text-[16px]">done</span> Broadcast Sent (3/3)';
+        showToast('Urgent Ping Broadcasted', 'Push notifications and SMS dispatched to pending judges J-07, J-02, J-05.');
+        setTimeout(() => {
+          btn.innerHTML = '<span class="material-symbols-outlined text-[16px]">sensors</span> Ping All Pending (3)';
+          btn.disabled = false;
+        }, 5000);
+      }, 1200);
+    }
+
+    function exportMerkleRoot() {
+      const dummyHash = "0x" + Array.from({length: 64}, () => Math.floor(Math.random()*16).toString(16)).join('');
+      showToast('Merkle Batch Exported', `Generated root: ${dummyHash.substring(0, 18)}... to audit package.`);
+      
+      // Inject row into live ledger
+      const ledger = document.getElementById('ledger-stream');
+      const now = new Date().toISOString().substring(11, 23);
+      const row = document.createElement('tr');
+      row.className = "hover:bg-surface-container/40 transition-colors animate-pulse";
+      row.innerHTML = `
+        <td class="py-2.5 px-3 text-on-surface-variant font-label-mono-sm">${now}</td>
+        <td class="py-2.5 px-3"><div class="flex items-center gap-1 text-primary"><span class="material-symbols-outlined text-[14px]">link</span><span>${dummyHash.substring(0, 10)}...</span></div></td>
+        <td class="py-2.5 px-3 text-on-surface"><span class="px-1.5 py-0.5 rounded bg-surface-container-high text-primary font-semibold">EXPORT_MERKLE_ROOT_BATCH</span><div class="text-outline text-[10px] mt-0.5">SHA-256 Bundle signed by Dr. Marcus Vance</div></td>
+        <td class="py-2.5 px-3"><div class="text-on-surface font-semibold">Dr. Marcus Vance</div><div class="text-outline text-[10px]">Lead Auditor Session</div></td>
+        <td class="py-2.5 px-3 text-right"><span class="inline-flex items-center gap-1 text-secondary font-semibold"><span class="material-symbols-outlined text-[14px]">verified</span>ARCHIVED</span></td>
+      `;
+      ledger.insertBefore(row, ledger.firstChild);
+    }
+
+    function generateAnomalyReport() {
+      const btn = document.getElementById('report-btn');
+      btn.classList.add('opacity-50');
+      showToast('Compiling Power BI Stream', 'Aggregating Z-Scores across 32 judges. Z-Variance is within normal distribution (+1.18 max).');
+      setTimeout(() => {
+        btn.classList.remove('opacity-50');
+      }, 2000);
+    }
+
+    function batchLockRounds() {
+      showToast('Rounds #01 & #04 Locked', 'Cryptographic consensus finalized and persisted to Azure Immutable WORM storage.');
+    }
+
+    function emergencyFreezePrompt() {
+      const confirmAction = confirm("CRITICAL SECURITY ACTION: Are you sure you want to trigger an Emergency Round Freeze across all active competition tracks? This halts all score submission inputs.");
+      if (confirmAction) {
+        showToast('GLOBAL ROUND FREEZE ACTIVE', 'All scoring matrices have been temporarily locked by Lead Auditor Marcus Vance.', true);
+      }
+    }
+
+    const coiModal = document.getElementById('coi-dialog');
+    function openCOIGate() {
+      coiModal.showModal();
+    }
+    function closeCOIGate() {
+      coiModal.close();
+    }
+    function submitCOIOverride() {
+      const reason = document.getElementById('coi-reason').value;
+      if (!reason.trim()) {
+        alert("Please enter a valid justification statement.");
+        return;
+      }
+      closeCOIGate();
+      showToast('COI Exception Logged', 'Dual-key compliance bypass registered into ledger with cryptographic signature.');
+    }
+  </script>
+</div></main></div><script src="/scorevault-bridge.js"></script></body></html>
+

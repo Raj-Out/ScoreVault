@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={"darkMode":"class","theme":{"extend":{"colors":{"on-secondary":"#003824","tertiary-fixed-dim":"#ffb95f","on-primary-container":"#00424f","surface-container":"#151e3a","inverse-on-surface":"#262f4c","error-container":"#93000a","on-primary-fixed-variant":"#004e5c","on-tertiary-fixed":"#2a1700","tertiary":"#ffb95f","secondary":"#4edea3","surface-variant":"#2b3450","secondary-fixed-dim":"#4edea3","outline-variant":"#3d494c","primary-fixed":"#acedff","on-error":"#690005","on-error-container":"#ffdad6","surface":"#08122d","surface-dim":"#08122d","on-secondary-fixed-variant":"#005236","on-primary":"#003640","primary-container":"#06b6d4","secondary-container":"#00a572","background":"#08122d","on-surface-variant":"#bcc9cd","secondary-fixed":"#6ffbbe","tertiary-fixed":"#ffddb8","on-secondary-container":"#00311f","on-background":"#dbe1ff","surface-container-lowest":"#030c28","primary":"#4cd7f6","tertiary-container":"#e79400","on-tertiary-container":"#563400","error":"#ffb4ab","inverse-primary":"#00687a","on-surface":"#dbe1ff","on-secondary-fixed":"#002113","inverse-surface":"#dbe1ff","surface-container-low":"#111a36","on-primary-fixed":"#001f26","on-tertiary":"#472a00","surface-container-highest":"#2b3450","outline":"#869397","on-tertiary-fixed-variant":"#653e00","surface-container-high":"#202945","primary-fixed-dim":"#4cd7f6","surface-bright":"#2f3855","surface-tint":"#4cd7f6"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"space-xl":"2.5rem","space-md":"1rem","margin-lg":"2.5rem","gutter-lg":"1.5rem","gutter-sm":"0.75rem","gutter":"1.25rem","space-sm":"0.5rem","margin-sm":"1rem","space-xs":"0.25rem","margin":"1.5rem","space-lg":"1.5rem"},"fontFamily":{"body-md":["Inter"],"body-lg":["Inter"],"label-mono-lg":["JetBrains Mono"],"headline-md":["Inter"],"title-md":["Inter"],"headline-lg":["Inter"],"body-sm":["Inter"],"display-lg-mobile":["Inter"],"display-lg":["Inter"],"label-mono-md":["JetBrains Mono"],"label-mono-sm":["JetBrains Mono"],"headline-lg-mobile":["Inter"]},"fontSize":{"body-md":["14px",{"lineHeight":"20px","fontWeight":"400"}],"body-lg":["16px",{"lineHeight":"24px","fontWeight":"400"}],"label-mono-lg":["14px",{"lineHeight":"20px","letterSpacing":"0.02em","fontWeight":"500"}],"headline-md":["20px",{"lineHeight":"28px","letterSpacing":"-0.005em","fontWeight":"600"}],"title-md":["16px",{"lineHeight":"24px","fontWeight":"600"}],"headline-lg":["28px",{"lineHeight":"36px","letterSpacing":"-0.01em","fontWeight":"600"}],"body-sm":["12px",{"lineHeight":"16px","fontWeight":"400"}],"display-lg-mobile":["30px",{"lineHeight":"38px","letterSpacing":"-0.01em","fontWeight":"700"}],"display-lg":["40px",{"lineHeight":"48px","letterSpacing":"-0.02em","fontWeight":"700"}],"label-mono-md":["12px",{"lineHeight":"16px","letterSpacing":"0.04em","fontWeight":"500"}],"label-mono-sm":["10px",{"lineHeight":"14px","letterSpacing":"0.06em","fontWeight":"500"}],"headline-lg-mobile":["22px",{"lineHeight":"30px","letterSpacing":"0em","fontWeight":"600"}]}}}};</script></head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-low z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col"><div class="h-16 px-gutter flex items-center gap-space-sm bg-surface-container-lowest/60"><div class="w-9 h-9 rounded-lg bg-surface-container-high flex items-center justify-center"><span class="material-symbols-outlined text-primary text-[22px]">shield_locked</span></div><div class="flex flex-col"><span class="font-headline-md text-title-md text-on-surface tracking-tight font-bold">ScoreVault</span><span class="font-label-mono-sm text-label-mono-sm text-outline tracking-wider uppercase">Tamper-Proof Audit</span></div></div><div class="px-space-md py-space-sm"><div class="px-space-sm py-space-xs font-label-mono-sm text-label-mono-sm uppercase text-outline tracking-wider">Adjudication Console</div></div><nav class="flex flex-col px-space-sm gap-space-xs" data-active-classes="bg-surface-container-high text-primary font-title-md"><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="live-leaderboard" href="/leaderboard.html"><span class="material-symbols-outlined text-[20px]">trophy</span><span class="font-title-md text-body-md">Live Leaderboard</span></a><a aria-current="page" class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg transition-all bg-surface-container-high text-primary font-title-md" data-path="judge-evaluation-and-scoring" href="/judging.html"><span class="material-symbols-outlined text-[20px]">fact_check</span><span class="font-title-md text-body-md">Judge Evaluation &amp; Scoring</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="admin-and-audit-ledger" href="/admin.html"><span class="material-symbols-outlined text-[20px]">account_tree</span><span class="font-title-md text-body-md">Admin &amp; Audit Ledger</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="participant-submissions" href="/submissions.html"><span class="material-symbols-outlined text-[20px]">inventory_2</span><span class="font-title-md text-body-md">Participant Submissions</span></a></nav></div><div class="p-space-md m-space-sm rounded-lg bg-surface-container-lowest/80 flex flex-col gap-space-sm"><div class="flex items-center justify-between"><span class="font-label-mono-sm text-label-mono-sm text-outline tracking-wider uppercase">DB Node Protocol</span><span class="inline-flex items-center gap-1 font-label-mono-sm text-label-mono-sm text-secondary"><span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span>Online</span></div><div class="flex flex-col gap-space-xs"><div class="flex justify-between items-center text-body-sm"><span class="text-on-surface-variant font-body-sm">Cluster Consensus</span><span class="font-label-mono-sm text-label-mono-sm text-on-surface">100% (7/7 Nodes)</span></div><div class="flex justify-between items-center text-body-sm"><span class="text-on-surface-variant font-body-sm">Block Finality</span><span class="font-label-mono-sm text-label-mono-sm text-primary">312 ms</span></div><div class="flex justify-between items-center text-body-sm"><span class="text-on-surface-variant font-body-sm">Ledger Hash</span><span class="font-label-mono-sm text-label-mono-sm text-outline-variant font-semibold">0x8f2c...4e19</span></div></div></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-16 bg-surface/80 backdrop-blur-xl z-40 shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 w-full px-gutter-lg flex items-center justify-between"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs px-space-md py-1 rounded-full bg-surface-container-high"><span class="w-2 h-2 rounded-full bg-secondary animate-ping"></span><span class="material-symbols-outlined text-secondary text-[16px]">verified</span><span class="font-label-mono-sm text-label-mono-sm text-secondary font-medium tracking-wide uppercase">Consensus: Sealed &amp; Syncing</span></div><div class="hidden xl:flex items-center gap-space-xs px-space-md py-1 rounded-full bg-surface-container"><span class="material-symbols-outlined text-primary text-[16px]">network_check</span><span class="font-label-mono-sm text-label-mono-sm text-primary font-medium tracking-wide uppercase">Network Integrity: 99.98%</span></div></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-surface-container-low"><span class="material-symbols-outlined text-outline text-[18px]">encrypted</span><span class="font-label-mono-sm text-label-mono-sm text-on-surface-variant">Epoch #4029</span></div><div class="flex items-center gap-space-sm pl-space-sm"><div class="flex flex-col text-right"><span class="font-title-md text-body-md text-on-surface font-semibold leading-tight">Dr. Marcus Vance</span><div class="flex items-center justify-end gap-1"><span class="px-1.5 py-0.5 rounded bg-primary/10 text-primary font-label-mono-sm text-label-mono-sm font-semibold uppercase">Lead Auditor</span><span class="px-1.5 py-0.5 rounded bg-surface-variant text-outline font-label-mono-sm text-label-mono-sm uppercase">Admin</span></div></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></div></header><main class="w-full pt-16 bg-surface min-h-screen px-gutter-lg py-gutter"><div class="flex flex-col w-full gap-space-lg pb-space-xl">
+<!-- Top Cockpit Header: Team Profile, COI Verification Badge & Real-Time Sync -->
+<div class="relative w-full rounded-xl bg-surface-container-low p-space-lg overflow-hidden shadow-xl">
+<div class="absolute -right-24 -top-24 w-96 h-96 rounded-full bg-primary/5 blur-3xl pointer-events-none"></div>
+<div class="absolute -left-12 -bottom-12 w-64 h-64 rounded-full bg-secondary/5 blur-2xl pointer-events-none"></div>
+<div class="relative z-10 flex flex-col xl:flex-row xl:items-center justify-between gap-space-md">
+<div class="flex items-start md:items-center gap-space-md">
+<div class="w-14 h-14 rounded-xl bg-surface-container-high flex items-center justify-center text-primary shadow-inner">
+<span class="material-symbols-outlined text-[32px]">neurology</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="px-2 py-0.5 rounded bg-primary/10 text-primary font-label-mono-sm text-label-mono-sm uppercase tracking-wider font-semibold">Slot #09</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-label-mono-sm text-label-mono-sm uppercase tracking-wide">Finalist Stage</span>
+<span class="px-2 py-0.5 rounded bg-surface-variant text-secondary font-label-mono-sm text-label-mono-sm uppercase tracking-wide flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span>Live Adjudication
+            </span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight mt-0.5">Team NeuroPulse</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Stanford University · Bio-Computational Interfaces &amp; Edge Neural Encoding Engine</p>
+</div>
+</div>
+<!-- COI & Cryptographic Session Clearance Badge -->
+<div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-space-sm">
+<div class="px-space-md py-space-sm rounded-lg bg-secondary/10 flex items-center gap-space-sm shadow-sm">
+<div class="w-8 h-8 rounded-full bg-secondary/20 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="font-title-md text-title-md text-secondary font-semibold">COI Cleared &amp; Notarized</span>
+<span class="px-1.5 py-0.2 rounded bg-secondary/20 text-secondary font-label-mono-sm text-label-mono-sm font-semibold">RFC-8785</span>
+</div>
+<span class="font-label-mono-sm text-label-mono-sm text-on-surface-variant">Auditor Affiliation (MIT) ≠ Team Origin (Stanford) — Deterministic Sig valid</span>
+</div>
+</div>
+<div class="px-space-md py-space-sm rounded-lg bg-surface-container flex flex-col justify-center">
+<span class="font-label-mono-sm text-label-mono-sm uppercase text-outline tracking-wider">HSM Session Key</span>
+<span class="font-label-mono-md text-label-mono-md text-primary truncate max-w-[180px]">0x7f3a9e22...c09f</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Main 12-Column Evaluation Cockpit Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter-lg items-start">
+<!-- Left Column (5 Cols): Multi-Modal Artifact Inspector -->
+<div class="lg:col-span-5 flex flex-col gap-space-md">
+<!-- Section Header -->
+<div class="flex items-center justify-between px-1">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">folder_special</span>
+<span class="font-title-md text-title-md text-on-surface font-semibold">Multi-Modal Artifact Inspector</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-outline font-label-mono-sm text-label-mono-sm uppercase">Azure Blob GRS Encrypted</span>
+</div>
+<!-- Artifact 1: Video Pitch Player -->
+<div class="rounded-xl bg-surface-container-low p-space-md flex flex-col gap-space-sm shadow-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[18px]">play_circle</span>
+<span class="font-label-mono-md text-label-mono-md text-on-surface font-medium">demo_pitch.mp4</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="px-1.5 py-0.5 rounded bg-surface-container-high text-primary font-label-mono-sm text-label-mono-sm">1080p60</span>
+<span class="px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-label-mono-sm text-label-mono-sm">03:42</span>
+</div>
+</div>
+<div class="relative w-full aspect-video rounded-lg overflow-hidden bg-surface-container-lowest group cursor-pointer shadow-inner">
+<div class="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Dark high-tech laboratory setting at night with a collegiate student demonstrating a brain-computer interface neural headband headset connected to glowing oscilloscope monitors and dual digital workstations with deep slate navy and cyan UI ambient glow" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDwtFa4Z_K1GPIU9Y0qtawX0h7GSvUMvyoOs-wH5-u8nsx6RCGkAT1dE_F676bNpAYyNvvZelEOtRL_aEQxFPfl1DRWyC8Y0nyLJqmgaI07itF95ZG0Ge5v7rqwHE3YtItTSnZNDCVufFKVWDx3Z1sKxS7xVazMOGQfio40OF5Uqv1N95rqy6sJ_9hzLzxBpjLuq4ZqgMSVFEZaSQ5UsZF3F6sfNSxv9hfXdhNb4Iw')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest/90 via-surface-container-lowest/30 to-transparent flex flex-col justify-between p-space-sm">
+<div class="flex justify-between items-center">
+<span class="px-2 py-1 rounded bg-surface-container-lowest/80 backdrop-blur-md text-secondary font-label-mono-sm text-label-mono-sm flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>H.264 Verifiable Stream
+              </span>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors text-[20px]">fullscreen</span>
+</div>
+<div class="flex items-center justify-center">
+<div class="w-12 h-12 rounded-full bg-primary/90 text-on-primary flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:bg-primary transition-all">
+<span class="material-symbols-outlined text-[28px] pl-0.5">play_arrow</span>
+</div>
+</div>
+<div class="flex items-center justify-between text-body-sm font-label-mono-sm text-on-surface-variant">
+<span>01:14 / 03:42</span>
+<span>Chunk Hash: 0x92f...ee10</span>
+</div>
+</div>
+<!-- Fake Progress Timeline -->
+<div class="absolute bottom-0 left-0 right-0 h-1 bg-surface-variant">
+<div class="h-full bg-primary w-1/3"></div>
+</div>
+</div>
+</div>
+<!-- Artifact 2: Code Repository Inspector -->
+<div class="rounded-xl bg-surface-container-low p-space-md flex flex-col gap-space-sm shadow-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">terminal</span>
+<span class="font-label-mono-md text-label-mono-md text-on-surface font-medium">github.com/neuropulse/core</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-secondary/10 text-secondary font-label-mono-sm text-label-mono-sm uppercase font-semibold">SHA-256 Valid</span>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container-lowest flex flex-col gap-1.5">
+<div class="flex items-center justify-between text-body-sm">
+<span class="text-on-surface-variant font-label-mono-sm">Archive Payload:</span>
+<span class="text-on-surface font-label-mono-sm">neuropulse-v1.4.2-snapshot.zip (142.4 MB)</span>
+</div>
+<div class="flex items-center justify-between text-body-sm">
+<span class="text-on-surface-variant font-label-mono-sm">Checksum:</span>
+<span class="text-primary font-label-mono-sm truncate max-w-[210px]">e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855</span>
+</div>
+<div class="flex items-center justify-between text-body-sm">
+<span class="text-on-surface-variant font-label-mono-sm">Rust / C++ Micro-kernel:</span>
+<span class="text-secondary font-label-mono-sm">98.4% Unit Test Pass (112/114)</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-space-xs mt-1">
+<button class="py-2 px-space-sm rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-title-md text-body-sm flex items-center justify-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-[18px] text-primary">code</span>
+            Preview Code
+          </button>
+<button class="py-2 px-space-sm rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-title-md text-body-sm flex items-center justify-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-[18px] text-secondary">memory</span>
+            Run Sandbox
+          </button>
+</div>
+</div>
+<!-- Artifact 3: Architecture Spec PDF with Verified Signatures -->
+<div class="rounded-xl bg-surface-container-low p-space-md flex flex-col gap-space-sm shadow-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary text-[18px]">picture_as_pdf</span>
+<span class="font-label-mono-md text-label-mono-md text-on-surface font-medium">architecture_spec.pdf</span>
+</div>
+<span class="font-label-mono-sm text-label-mono-sm text-outline">18 Pages · 14.8 MB</span>
+</div>
+<div class="flex items-center gap-space-md p-space-sm rounded-lg bg-surface-container-lowest">
+<div class="w-16 h-20 rounded bg-surface-container-high overflow-hidden flex-shrink-0 relative shadow">
+<div class="w-full h-full bg-cover bg-center" data-alt="Technical PDF architectural schematic document thumbnail showing complex microservice DAG diagrams and high-concurrency neural processing pipelines with neon cyan and amber callouts on dark technical slate page" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA9oJgicAIX-zl6nf_O3vs3K6AMFp9Qnyi-EcVIrJ3Z2ghYAsIiBln80Q_ogipWyex9lvaCGCWssF-MR9sAWAeZ8U6GXMYBTTiMedf9xI0QxCN8s3Du2FCvujRfZlNy4ARLNjfUrbGOwwDd6pzSySMU7T78Kx4re4WclGz3Pnq6kW-NqHXMR1nOT42gV1HhwLohxhhAdLyHnjA4k78SqQnpcaLtf2pDfMfAEreho5I')"></div>
+<div class="absolute inset-0 bg-surface-container-lowest/20"></div>
+</div>
+<div class="flex flex-col gap-1 min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-secondary text-[16px]">verified</span>
+<span class="font-label-mono-sm text-label-mono-sm text-secondary font-semibold">X.509 Cryptographic Seal Valid</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Signed by Stanford Hardware Verification Guild CA</p>
+<div class="flex items-center gap-2 mt-1">
+<button class="text-primary hover:text-primary-fixed text-body-sm font-title-md flex items-center gap-1">
+<span>Open in Secure Reader</span>
+<span class="material-symbols-outlined text-[16px]">open_in_new</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Azure Cloud Hash Verification Box -->
+<div class="rounded-xl bg-surface-container-lowest p-space-md flex items-center justify-between shadow-inner">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[22px]">cloud_done</span>
+<div class="flex flex-col">
+<span class="font-label-mono-sm text-label-mono-sm text-outline uppercase tracking-wider">Blob Consistency Witness</span>
+<span class="font-label-mono-sm text-label-mono-sm text-on-surface">Replica: eastus2.blob.core.windows.net</span>
+</div>
+</div>
+<span class="px-2 py-1 rounded-full bg-primary/10 text-primary font-label-mono-sm text-label-mono-sm font-semibold">Immunity Confirmed</span>
+</div>
+</div>
+<!-- Right Column (7 Cols): Evaluation Engine, Weighted Rubric & Bench Audit Feedback -->
+<div class="lg:col-span-7 flex flex-col gap-space-md">
+<!-- Aggregated Score Summary Ribbon Card -->
+<div class="rounded-xl bg-surface-container-low p-space-lg shadow-xl relative overflow-hidden">
+<div class="absolute -right-16 -top-16 w-48 h-48 rounded-full bg-primary/10 blur-2xl pointer-events-none"></div>
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md relative z-10">
+<div class="flex items-center gap-space-lg">
+<!-- Inline SVG Gauge -->
+<div class="relative w-24 h-24 flex items-center justify-center flex-shrink-0">
+<svg class="w-full h-full -rotate-90" viewbox="0 0 100 100">
+<circle class="text-surface-container-highest" cx="50" cy="50" fill="none" r="42" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-primary transition-all duration-700 ease-out" cx="50" cy="50" fill="none" r="42" stroke="currentColor" stroke-dasharray="264" stroke-dashoffset="21.12" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="font-headline-lg text-headline-lg font-bold text-on-surface leading-none" id="summary-percentage">92%</span>
+<span class="font-label-mono-sm text-label-mono-sm text-primary uppercase">Total</span>
+</div>
+</div>
+<div class="flex flex-col">
+<span class="font-label-mono-sm text-label-mono-sm uppercase text-outline tracking-wider">Dynamic Score Aggregator</span>
+<div class="flex items-baseline gap-2">
+<span class="font-display-lg text-display-lg text-on-surface font-extrabold" id="total-score-display">92.00</span>
+<span class="font-title-md text-title-md text-outline">/ 100.00 pts</span>
+</div>
+<div class="flex items-center gap-2 mt-0.5">
+<span class="px-2 py-0.5 rounded bg-secondary/15 text-secondary font-label-mono-sm text-label-mono-sm font-semibold">Honors Distinction</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-primary font-label-mono-sm text-label-mono-sm">Alpha Consensus Tier</span>
+</div>
+</div>
+</div>
+<!-- Mathematical 100% Total Validation Gauge -->
+<div class="flex flex-col items-start md:items-end justify-center rounded-lg bg-surface-container p-space-sm">
+<span class="font-label-mono-sm text-label-mono-sm uppercase text-outline">Rubric Allocation Math</span>
+<div class="flex items-center gap-1.5 mt-1">
+<span class="material-symbols-outlined text-secondary text-[16px]">check_circle</span>
+<span class="font-label-mono-md text-label-mono-md text-secondary font-semibold">100.0% Normalized</span>
+</div>
+<span class="font-label-mono-sm text-label-mono-sm text-outline mt-0.5">No mathematical skew detected</span>
+</div>
+</div>
+</div>
+<!-- Weighted Rubric Cards Engine (4 Strict Criteria) -->
+<div class="flex flex-col gap-space-sm">
+<!-- Criteria 1: Innovation & Novelty (30%) -->
+<div class="rounded-xl bg-surface-container-low p-space-md flex flex-col gap-space-sm hover:bg-surface-container transition-colors shadow-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">lightbulb</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md text-on-surface font-semibold">1. Innovation &amp; Novelty</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Breakthrough biological signal acquisition &amp; edge latency</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-outline font-label-mono-sm text-label-mono-sm">Weight 30%</span>
+<div class="flex items-center gap-1 bg-surface-container-lowest px-space-sm py-1 rounded">
+<span class="font-label-mono-lg text-label-mono-lg text-primary font-bold" id="c1-val">27.00</span>
+<span class="font-label-mono-sm text-label-mono-sm text-outline">/ 30</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-space-md pt-1">
+<input class="w-full h-1.5 bg-surface-variant rounded-lg appearance-none cursor-pointer accent-primary" max="30" min="0" oninput="updateRubric('c1', this.value, 30)" step="0.5" type="range" value="27"/>
+<div class="flex items-center gap-1">
+<button class="w-7 h-7 rounded bg-surface-container-high hover:bg-surface-variant flex items-center justify-center text-on-surface font-bold transition-colors" onclick="stepRubric('c1', -0.5, 30)">-</button>
+<button class="w-7 h-7 rounded bg-surface-container-high hover:bg-surface-variant flex items-center justify-center text-on-surface font-bold transition-colors" onclick="stepRubric('c1', 0.5, 30)">+</button>
+</div>
+</div>
+</div>
+<!-- Criteria 2: System Architecture (25%) -->
+<div class="rounded-xl bg-surface-container-low p-space-md flex flex-col gap-space-sm hover:bg-surface-container transition-colors shadow-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[18px]">account_tree</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md text-on-surface font-semibold">2. System Architecture</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Decentralized synchronization, memory safety &amp; fault resilience</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-outline font-label-mono-sm text-label-mono-sm">Weight 25%</span>
+<div class="flex items-center gap-1 bg-surface-container-lowest px-space-sm py-1 rounded">
+<span class="font-label-mono-lg text-label-mono-lg text-secondary font-bold" id="c2-val">23.00</span>
+<span class="font-label-mono-sm text-label-mono-sm text-outline">/ 25</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-space-md pt-1">
+<input class="w-full h-1.5 bg-surface-variant rounded-lg appearance-none cursor-pointer accent-secondary" max="25" min="0" oninput="updateRubric('c2', this.value, 25)" step="0.5" type="range" value="23"/>
+<div class="flex items-center gap-1">
+<button class="w-7 h-7 rounded bg-surface-container-high hover:bg-surface-variant flex items-center justify-center text-on-surface font-bold transition-colors" onclick="stepRubric('c2', -0.5, 25)">-</button>
+<button class="w-7 h-7 rounded bg-surface-container-high hover:bg-surface-variant flex items-center justify-center text-on-surface font-bold transition-colors" onclick="stepRubric('c2', 0.5, 25)">+</button>
+</div>
+</div>
+</div>
+<!-- Criteria 3: Execution & Robustness (25%) -->
+<div class="rounded-xl bg-surface-container-low p-space-md flex flex-col gap-space-sm hover:bg-surface-container transition-colors shadow-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md text-on-surface font-semibold">3. Execution &amp; Robustness</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Benchmark throughput under stress, deterministic compiler builds</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-outline font-label-mono-sm text-label-mono-sm">Weight 25%</span>
+<div class="flex items-center gap-1 bg-surface-container-lowest px-space-sm py-1 rounded">
+<span class="font-label-mono-lg text-label-mono-lg text-tertiary font-bold" id="c3-val">24.00</span>
+<span class="font-label-mono-sm text-label-mono-sm text-outline">/ 25</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-space-md pt-1">
+<input class="w-full h-1.5 bg-surface-variant rounded-lg appearance-none cursor-pointer accent-tertiary" max="25" min="0" oninput="updateRubric('c3', this.value, 25)" step="0.5" type="range" value="24"/>
+<div class="flex items-center gap-1">
+<button class="w-7 h-7 rounded bg-surface-container-high hover:bg-surface-variant flex items-center justify-center text-on-surface font-bold transition-colors" onclick="stepRubric('c3', -0.5, 25)">-</button>
+<button class="w-7 h-7 rounded bg-surface-container-high hover:bg-surface-variant flex items-center justify-center text-on-surface font-bold transition-colors" onclick="stepRubric('c3', 0.5, 25)">+</button>
+</div>
+</div>
+</div>
+<!-- Criteria 4: Bench Defense & Q&A (20%) -->
+<div class="rounded-xl bg-surface-container-low p-space-md flex flex-col gap-space-sm hover:bg-surface-container transition-colors shadow-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-primary-fixed">
+<span class="material-symbols-outlined text-[18px]">record_voice_over</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md text-on-surface font-semibold">4. Bench Defense &amp; Q&amp;A</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Live cross-examination responses, theoretical clarity &amp; proofs</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-outline font-label-mono-sm text-label-mono-sm">Weight 20%</span>
+<div class="flex items-center gap-1 bg-surface-container-lowest px-space-sm py-1 rounded">
+<span class="font-label-mono-lg text-label-mono-lg text-primary-fixed font-bold" id="c4-val">18.00</span>
+<span class="font-label-mono-sm text-label-mono-sm text-outline">/ 20</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-space-md pt-1">
+<input class="w-full h-1.5 bg-surface-variant rounded-lg appearance-none cursor-pointer accent-primary-fixed" max="20" min="0" oninput="updateRubric('c4', this.value, 20)" step="0.5" type="range" value="18"/>
+<div class="flex items-center gap-1">
+<button class="w-7 h-7 rounded bg-surface-container-high hover:bg-surface-variant flex items-center justify-center text-on-surface font-bold transition-colors" onclick="stepRubric('c4', -0.5, 20)">-</button>
+<button class="w-7 h-7 rounded bg-surface-container-high hover:bg-surface-variant flex items-center justify-center text-on-surface font-bold transition-colors" onclick="stepRubric('c4', 0.5, 20)">+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Structured Bench Audit Feedback Text Area (DP-900 JSON schema validator) -->
+<div class="rounded-xl bg-surface-container-low p-space-md flex flex-col gap-space-sm shadow-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">data_object</span>
+<span class="font-title-md text-title-md text-on-surface font-semibold">Structured Bench Audit Feedback</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="px-2 py-0.5 rounded bg-secondary/10 text-secondary font-label-mono-sm text-label-mono-sm flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>DP-900 Schema Valid
+            </span>
+<span class="font-label-mono-sm text-label-mono-sm text-outline" id="char-counter">384 / 2000 chars</span>
+</div>
+</div>
+<div class="relative w-full">
+<textarea class="w-full bg-surface-container-lowest text-on-surface font-label-mono-md text-body-sm p-space-sm rounded-lg focus:outline-none focus:ring-1 focus:ring-primary border-0 resize-none leading-relaxed" id="audit-feedback" oninput="updateCharCount(this)" rows="4">{
+  "evaluator_verdict": "UNANIMOUS_HONORS_RECOMMENDED",
+  "technical_rigor_notes": "Novel bio-signal compression achieved 4.2ms round-trip epoch dispatch with zero packet degradation. Edge buffer overflow mitigation verified under simulated adversarial noise burst.",
+  "reproducibility_witness": "Pass with 99.4% precision on standard synthetic dataset."
+}</textarea>
+</div>
+</div>
+<!-- ACID Serializable Stored Procedure Warning Banner -->
+<div class="rounded-xl bg-error-container/20 p-space-md flex items-start gap-space-sm shadow-md">
+<span class="material-symbols-outlined text-error text-[22px] flex-shrink-0 mt-0.5">lock_clock</span>
+<div class="flex flex-col gap-0.5">
+<span class="font-title-md text-title-md text-on-surface font-semibold">Permanent Ledger Seal Warning</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+            Executing finalization triggers ACID serializable stored procedure <code class="text-primary font-label-mono-sm px-1 py-0.5 rounded bg-surface-container-lowest">sp_finalize_and_lock_round_scores</code> setting <code class="text-error font-label-mono-sm px-1 py-0.5 rounded bg-surface-container-lowest">is_locked = 1</code> on Azure SQL Ledger. This cryptographic commit is mathematically immutable and logged to the central blockchain consensus cluster.
+          </p>
+</div>
+</div>
+<!-- Final Action Strip & HSM Cryptographic Stamp Button -->
+<div class="rounded-xl bg-surface-container-high p-space-md flex flex-col md:flex-row items-center justify-between gap-space-md shadow-lg">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-surface-container-lowest flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[24px]">key</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-mono-sm text-label-mono-sm uppercase text-outline">Signature Spec</span>
+<span class="font-label-mono-sm text-label-mono-sm text-on-surface font-medium">HSM-sealed RSA-PSS 4096 · Nonce: 0x98bf24c01e</span>
+</div>
+</div>
+<button class="w-full md:w-auto px-space-xl py-3 rounded-lg bg-primary-container text-on-primary font-title-md text-title-md font-bold flex items-center justify-center gap-space-sm hover:brightness-110 active:scale-95 transition-all shadow-[0_0_20px_rgba(6,182,212,0.35)]" id="lock-btn" onclick="triggerLedgerCommit()">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">shield_locked</span>
+          Finalize &amp; Cryptographically Lock Score
+        </button>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Dynamic Score Aggregator Logic
+  const rubricState = {
+    c1: 27.0,
+    c2: 23.0,
+    c3: 24.0,
+    c4: 18.0
+  };
+
+  function updateRubric(key, val, max) {
+    const num = Math.min(Math.max(parseFloat(val) || 0, 0), max);
+    rubricState[key] = num;
+    document.getElementById(key + '-val').innerText = num.toFixed(2);
+    recalculateTotal();
+  }
+
+  function stepRubric(key, delta, max) {
+    const nextVal = Math.min(Math.max((rubricState[key] || 0) + delta, 0), max);
+    rubricState[key] = nextVal;
+    document.getElementById(key + '-val').innerText = nextVal.toFixed(2);
+    // Find input slider
+    const container = document.getElementById(key + '-val').closest('.rounded-xl');
+    const input = container.querySelector('input[type="range"]');
+    if (input) input.value = nextVal;
+    recalculateTotal();
+  }
+
+  function recalculateTotal() {
+    const total = rubricState.c1 + rubricState.c2 + rubricState.c3 + rubricState.c4;
+    document.getElementById('total-score-display').innerText = total.toFixed(2);
+    const pct = Math.round((total / 100) * 100);
+    document.getElementById('summary-percentage').innerText = pct + '%';
+  }
+
+  function updateCharCount(el) {
+    const len = el.value.length;
+    document.getElementById('char-counter').innerText = len + ' / 2000 chars';
+  }
+
+  function triggerLedgerCommit() {
+    const btn = document.getElementById('lock-btn');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="material-symbols-outlined text-[20px] animate-spin">refresh</span> Signing & Sealing Ledger...';
+    btn.classList.remove('bg-primary-container', 'text-on-primary');
+    btn.classList.add('bg-secondary-container', 'text-on-secondary');
+
+    setTimeout(() => {
+      btn.innerHTML = '<span class="material-symbols-outlined text-[20px]">verified</span> Score Immutable &amp; Locked';
+      btn.classList.remove('animate-pulse');
+      alert('ACID Transaction 0x8a92e104 executed successfully.\\nStored procedure sp_finalize_and_lock_round_scores finalized. Score record has been immutably sealed into Epoch #4029.');
+    }, 1200);
+  }
+</script></main></div><script src="/scorevault-bridge.js"></script></body></html>
+
