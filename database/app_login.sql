@@ -13,19 +13,24 @@
      1. Open this file in VS Code.
      2. Replace REPLACE_WITH_A_STRONG_PASSWORD in the editor with a strong password
         (at least 16 characters, with upper case, lower case, digits and symbols).
+        Never reuse a password from the README or any other file.
      3. Run the file with Ctrl+Shift+E WITHOUT saving it.
      4. Close the file and choose "Don't Save", so the repository copy keeps the placeholder.
    The app then reads this password from the DB_PASSWORD environment variable.
+   To change the password later, run:
+       ALTER USER scorevault_app WITH PASSWORD = N'NEW_PASSWORD';
+   (also without saving it).
    ============================================================================ */
 
 IF NOT EXISTS (SELECT 1 FROM sys.database_principals WHERE name = 'scorevault_app')
 BEGIN
     -- A contained database user: it exists only inside this database and cannot log in to the server.
-    CREATE USER scorevault_app WITH PASSWORD = N'AdminSecurePass#2026';  -- REPLACE WITH A STRONG PASSWORD
+    CREATE USER scorevault_app WITH PASSWORD = N'REPLACE_WITH_A_STRONG_PASSWORD';
 END;
 GO
 
 -- The app may read everything, write rows, and run the stored procedures.
+-- This covers the participant features too (teams, team_members, submissions).
 GRANT SELECT, INSERT, UPDATE ON SCHEMA::dbo TO scorevault_app;
 GRANT EXECUTE ON SCHEMA::dbo TO scorevault_app;
 
