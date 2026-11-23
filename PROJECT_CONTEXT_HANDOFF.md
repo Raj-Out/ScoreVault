@@ -1,7 +1,7 @@
 # ScoreVault: AI Context Transfer & Project Handoff Document
 
 > **Target Audience:** Any AI model, pair programmer, or developer taking over or continuing work on this project.  
-> **Last Updated:** November 11, 2026  
+> **Last Updated:** November 23, 2026 
 > **Project Directory:** `C:\SEM3 PROJECT`  
 > **GitHub Repository:** [https://github.com/Raj-Out/ScoreVault](https://github.com/Raj-Out/ScoreVault)
 
@@ -54,3 +54,35 @@
    - Backend API: `LeaderboardController` & `LeaderboardService` (`GET /api/v1/rounds`, `GET /api/v1/leaderboard/{roundId}`).
    - View `vw_round_leaderboard` computing weighted averages and tie-breaks (priority criterion + submission timestamp).
    - Interactive web UI displaying live standings.
+
+   ---
+
+## 4. Update 23 Nov 2026 (Prince, branch feature/participant-access)
+
+**New commits:**
+- d754151 feat(backend): participant team registration API
+- f092d79 feat(backend): participant results API (finalized rounds only)
+
+**Done and tested in Postman (all under /api/v1/participant, PARTICIPANT role only):**
+- POST /teams (create team), GET /teams (my teams), POST /teams/{id}/members (lead adds member by email)
+- GET /results (only rounds with status COMPLETED; score, rank, per-criterion averages across judges)
+- Identity always comes from the JWT; no team or user id is accepted from the client.
+- A judge token gets 403 on these endpoints.
+
+**Not done yet:**
+1. Participant web pages (login, my teams, my results)
+2. Submission upload (submissions table exists; Azure Blob SAS or local fallback)
+3. Finalize one round (sp_finalize_and_lock_round_scores) so /results shows data in the demo
+4. Redeploy backend to Azure App Service
+5. Update DESIGN_DOCUMENT.md with participant endpoints; write project report and user manual
+6. Reconcile schema.sql differences, then viva rehearsal
+7. Change the scorevault_app database password and update DB_PASSWORD in Azure (old one is in git history)
+
+**Run locally:** cd backend, set $env:SERVER_PORT = "8081" if 8080 is busy, run .\run.ps1. Never commit database passwords.
+
+
+
+
+
+
+
