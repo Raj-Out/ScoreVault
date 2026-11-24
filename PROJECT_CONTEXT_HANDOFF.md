@@ -102,11 +102,17 @@
 
 **Run locally:** cd backend; $env:SERVER_PORT = "8081" if Steam or another program uses 8080; .\run.ps1. Never commit database passwords.
 
+---
 
+## 6. Update 24 Nov 2026 (branch feature/participant-access, after merging main)
 
+**Done:**
+- Merged `main` into `feature/participant-access` (clean merge; the branch now has `login.html` from main).
+- `scorevault-bridge.js`: fixed session key mismatch (login.html writes `sv_token`/`sv_user`; the bridge read different keys and silently auto-logged in as admin). Removed the admin auto-login and all hardcoded demo passwords; no session now redirects to `/login.html`; 401 signs out; header shows `user.name`. The role switcher is now "Sign out / Switch role".
+- `judging.html` is now wired to the real API: loads the judge's first open assignment from `GET /api/v1/scores/my-tasks`, shows the real team, event and rubric criteria, computes the weighted total live, and submits the real `assignmentId` and `criterionId`s to `POST /api/v1/scores/submit` (previously it always posted assignment 1 with fixed scores, which is already locked).
+- `app.js`: header uses `user.name` (login returns `name`, not `fullName`).
+- `docs/DESIGN_DOCUMENT.md`: section 5.3 now documents the real `/api/v1/participant/**` endpoints, validation rules and the local-storage note.
+- Added `database/demo_setup.sql` (test-upload cleanup, Round 2 to EVALUATION, judge assignment) and `docs/FINAL_RUNBOOK.md`.
 
-
-
-
-
+**Still to do (manual, needs credentials):** merge PR, rotate DB password and update `DB_PASSWORD` in Azure, run `demo_setup.sql`, redeploy, live smoke test, project report and user manual, schema.sql reconciliation, viva rehearsal. See `docs/FINAL_RUNBOOK.md`.
 

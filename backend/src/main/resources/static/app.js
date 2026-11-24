@@ -164,7 +164,7 @@
     $('login-view').hidden = true;
     $('rubric-app-view').hidden = false;
     $('whoami').hidden = false;
-    $('who').textContent = user.fullName + ' (' + user.role + ') · ' + (user.affiliation || '');
+    $('who').textContent = (user.name || user.fullName) + ' (' + user.role + ') · ' + (user.affiliation || '');
 
     var isJudge = user.role === 'JUDGE';
     var isAdmin = user.role === 'ADMIN';

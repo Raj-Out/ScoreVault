@@ -3,8 +3,8 @@
 (function () {
   'use strict';
 
-  var TOKEN_KEY = 'scorevault_jwt_token';
-  var USER_KEY = 'scorevault_user_info';
+  var TOKEN_KEY = 'sv_token'; // same keys that login.html writes
+  var USER_KEY = 'sv_user';
 
   function getToken() { return sessionStorage.getItem(TOKEN_KEY); }
   function getUser() {
@@ -29,6 +29,7 @@
         if (!res.ok) {
           var err = new Error(data.error || ('Request failed (' + res.status + ')'));
           err.status = res.status;
+          if (res.status === 401) { signOut(); }
           throw err;
         }
         return data;
@@ -36,94 +37,45 @@
     });
   }
 
-  // Auto-login as default demo Admin if no token present
+  function signOut() {
+    setSession(null, null);
+    window.location.href = '/login.html';
+  }
+
+  // No auto-login: if there is no session, send the visitor to the login page.
   function ensureSession() {
     if (!getToken()) {
-      api('/api/v1/auth/login', {
-        method: 'POST',
-        body: { email: 'admin@scorevault.culkomail.in', password: 'AdminSecurePass#2026' }
-      }).then(function (res) {
-        setSession(res.token, res.user);
-        updateHeaderUser();
-      }).catch(function () {
-        // If DB paused or unreachable, fallback to default display user
-        updateHeaderUser();
-      });
-    } else {
-      updateHeaderUser();
+      window.location.href = '/login.html';
+      return false;
     }
+    updateHeaderUser();
+    return true;
   }
 
   function updateHeaderUser() {
     var user = getUser();
     var nameEl = document.querySelector('header span.font-title-md');
     if (nameEl && user) {
-      nameEl.textContent = user.fullName;
+      nameEl.textContent = user.name || user.fullName || '';
     }
     var badges = document.querySelectorAll('header span.font-label-mono-sm');
     if (badges && badges.length >= 2 && user) {
-      badges[badges.length - 2].textContent = user.affiliation || 'Chandigarh Univ';
+      badges[badges.length - 2].textContent = user.affiliation || 'ScoreVault';
       badges[badges.length - 1].textContent = user.role;
     }
   }
 
-  // Quick Role Switcher Modal / Bar in Header
+  // "Switch role" simply signs out and returns to the login page.
+  // No passwords are stored in this file.
   function mountRoleSwitcher() {
     var headerRight = document.querySelector('header .flex.items-center.gap-space-md');
     if (!headerRight) return;
 
     var btn = document.createElement('button');
     btn.className = 'flex items-center gap-1 px-3 py-1 rounded-lg bg-surface-container-high text-primary hover:bg-surface-container-highest text-xs font-semibold transition-all border border-primary/20';
-    btn.innerHTML = '<span class="material-symbols-outlined text-[16px]">switch_account</span><span>Switch Demo Role</span>';
-    btn.onclick = showRoleModal;
+    btn.innerHTML = '<span class="material-symbols-outlined text-[16px]">logout</span><span>Sign out / Switch role</span>';
+    btn.onclick = signOut;
     headerRight.prepend(btn);
-  }
-
-  function showRoleModal() {
-    var existing = document.getElementById('role-modal');
-    if (existing) { existing.remove(); return; }
-
-    var modal = document.createElement('div');
-    modal.id = 'role-modal';
-    modal.className = 'fixed top-18 right-8 w-80 bg-surface-container-low border border-outline-variant/30 rounded-xl shadow-2xl p-4 z-50 flex flex-col gap-3 backdrop-blur-xl';
-    modal.innerHTML = `
-      <div class="flex justify-between items-center pb-2 border-b border-surface-variant">
-        <span class="font-bold text-on-surface text-sm">Select Test Role</span>
-        <button id="close-modal" class="text-outline hover:text-on-surface text-xs font-mono">✕</button>
-      </div>
-      <div class="flex flex-col gap-2">
-        <button data-email="admin@scorevault.culkomail.in" data-pass="AdminSecurePass#2026" class="role-btn text-left p-2.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-xs transition-all">
-          <div class="font-bold text-primary">Admin / Organiser</div>
-          <div class="text-[11px] text-outline">admin@scorevault.culkomail.in</div>
-        </button>
-        <button data-email="judge.tech@scorevault.culkomail.in" data-pass="JudgeSecurePass#2026" class="role-btn text-left p-2.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-xs transition-all">
-          <div class="font-bold text-secondary">Tech Judge (IIT Delhi)</div>
-          <div class="text-[11px] text-outline">judge.tech@scorevault.culkomail.in</div>
-        </button>
-        <button data-email="lead.alphabits@culkomail.in" data-pass="TeamSecurePass#2026" class="role-btn text-left p-2.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-xs transition-all">
-          <div class="font-bold text-tertiary">Participant Lead (Team AlphaBits)</div>
-          <div class="text-[11px] text-outline">lead.alphabits@culkomail.in</div>
-        </button>
-      </div>
-    `;
-
-    document.body.appendChild(modal);
-    document.getElementById('close-modal').onclick = function () { modal.remove(); };
-
-    modal.querySelectorAll('.role-btn').forEach(function (b) {
-      b.onclick = function () {
-        var email = b.getAttribute('data-email');
-        var pass = b.getAttribute('data-pass');
-        api('/api/v1/auth/login', { method: 'POST', body: { email: email, password: pass } })
-          .then(function (res) {
-            setSession(res.token, res.user);
-            modal.remove();
-            window.location.reload();
-          }).catch(function (err) {
-            alert('Sign in failed: ' + err.message);
-          });
-      };
-    });
   }
 
   // Dynamic Live Leaderboard wiring
@@ -151,71 +103,128 @@
     }).catch(function () {});
   }
 
-  // Dynamic Scoring sliders calculation on judging.html
+  // Judging page: loads the judge's real assignment and submits real scores.
   function initJudging() {
     if (!window.location.pathname.includes('judging')) return;
 
-    var sliders = document.querySelectorAll('input[type="range"]');
-    var scoreDisplay = document.querySelector('.font-label-mono-lg.text-primary.text-title-md');
+    var lockBtn = document.getElementById('lock-btn');
+    var totalEl = document.getElementById('total-score-display');
+    var pctEl = document.getElementById('summary-percentage');
+    var teamEl = document.querySelector('h1');
+    var subtitleEl = teamEl ? teamEl.parentElement.querySelector('p') : null;
+    var feedbackEl = document.getElementById('audit-feedback');
+    var task = null;
+    var rows = []; // { criterion, slider, valEl }
+
+    function setLockState(enabled, label) {
+      if (!lockBtn) return;
+      lockBtn.disabled = !enabled;
+      lockBtn.style.opacity = enabled ? '' : '0.5';
+      if (label) { lockBtn.lastChild.textContent = ' ' + label; }
+    }
 
     function recompute() {
       var total = 0;
-      sliders.forEach(function (s) {
-        var val = parseFloat(s.value) || 0;
-        var max = parseFloat(s.max) || 10;
-        // Find criterion weight from adjacent badge
-        var card = s.closest('.p-space-md');
-        var weightBadge = card ? card.querySelector('.font-label-mono-sm') : null;
-        var weight = 25; // default 25%
-        if (weightBadge && weightBadge.textContent.includes('%')) {
-          weight = parseFloat(weightBadge.textContent.replace(/[^0-9.]/g, '')) || 25;
-        }
-        total += (val / max) * weight;
+      rows.forEach(function (r) {
+        var raw = parseFloat(r.slider.value) || 0;
+        var max = Number(r.criterion.maxScore) || 10;
+        total += (raw / max) * Number(r.criterion.weightagePercent);
+        r.valEl.textContent = raw.toFixed(2);
       });
-      if (scoreDisplay) {
-        scoreDisplay.textContent = total.toFixed(2) + ' / 100.00';
+      if (totalEl) totalEl.textContent = total.toFixed(2);
+      if (pctEl) pctEl.textContent = Math.round(total) + '%';
+    }
+
+    function bindCard(i, c) {
+      var valEl = document.getElementById('c' + (i + 1) + '-val');
+      if (!valEl) return null;
+      var card = valEl.closest('.rounded-xl');
+      var slider = card.querySelector('input[type="range"]');
+      var titles = card.querySelectorAll('span.font-title-md, span.font-body-sm');
+      if (titles[0]) titles[0].textContent = (i + 1) + '. ' + c.name;
+      if (titles[1]) titles[1].textContent = c.description || '';
+      card.querySelectorAll('span').forEach(function (sp) {
+        if (/^Weight /.test(sp.textContent)) { sp.textContent = 'Weight ' + Number(c.weightagePercent) + '%'; }
+        if (/^\/ /.test(sp.textContent.trim())) { sp.textContent = '/ ' + Number(c.maxScore); }
+      });
+      slider.removeAttribute('oninput');
+      slider.min = 0;
+      slider.max = Number(c.maxScore);
+      slider.step = 0.5;
+      slider.value = Number(c.maxScore) / 2;
+      slider.addEventListener('input', recompute);
+      var btns = card.querySelectorAll('button');
+      if (btns[0]) btns[0].onclick = function () { slider.value = Math.max(0, parseFloat(slider.value) - 0.5); recompute(); };
+      if (btns[1]) btns[1].onclick = function () { slider.value = Math.min(Number(c.maxScore), parseFloat(slider.value) + 0.5); recompute(); };
+      return { criterion: c, slider: slider, valEl: valEl, card: card };
+    }
+
+    function showNoTask(msg) {
+      if (teamEl) teamEl.textContent = msg;
+      if (subtitleEl) subtitleEl.textContent = 'Ask an administrator to assign you a team in a round (Admin > Assign Judge).';
+      for (var k = 1; k <= 4; k++) {
+        var v = document.getElementById('c' + k + '-val');
+        var card = v && v.closest('.rounded-xl');
+        if (card) card.style.display = 'none';
       }
+      if (totalEl) totalEl.textContent = '0.00';
+      if (pctEl) pctEl.textContent = '0%';
+      if (feedbackEl) feedbackEl.value = '';
+      setLockState(false);
     }
 
-    sliders.forEach(function (s) {
-      s.addEventListener('input', recompute);
-    });
-
-    // Commit & Lock Button
-    var commitBtn = document.querySelector('button:has(.material-symbols-outlined:contains("lock")), button:contains("Commit")');
-    if (!commitBtn) {
-      document.querySelectorAll('button').forEach(function (b) {
-        if (b.textContent.includes('Commit') || b.textContent.includes('Lock') || b.textContent.includes('Seal')) {
-          commitBtn = b;
+    function submit() {
+      if (!task) return;
+      if (!confirm('Once sealed, this score is locked permanently and written to the audit log. Proceed?')) return;
+      setLockState(false);
+      api('/api/v1/scores/submit', {
+        method: 'POST',
+        body: {
+          assignmentId: task.assignmentId,
+          criteriaScores: rows.map(function (r) {
+            return { criterionId: r.criterion.criterionId, rawScore: parseFloat(r.slider.value) };
+          }),
+          feedback: feedbackEl ? feedbackEl.value : ''
         }
+      }).then(function () {
+        alert('Evaluation committed and locked.');
+        window.location.href = '/leaderboard.html';
+      }).catch(function (err) {
+        alert('Could not commit: ' + err.message);
+        setLockState(true);
       });
     }
 
-    if (commitBtn) {
-      commitBtn.onclick = function (e) {
-        e.preventDefault();
-        if (confirm('Once sealed, this score locks permanently in the immutable audit ledger. Proceed?')) {
-          api('/api/v1/scores/submit', {
-            method: 'POST',
-            body: {
-              assignmentId: 1,
-              criteriaScores: [
-                { criterionId: 1, rawScore: 9.5 },
-                { criterionId: 2, rawScore: 9.0 },
-                { criterionId: 3, rawScore: 8.5 },
-                { criterionId: 4, rawScore: 9.0 }
-              ],
-              feedback: 'Sealed via Stitch Adjudication Console'
-            }
-          }).then(function () {
-            alert('✓ Evaluation successfully committed and sealed with immutable trigger audit hash!');
-            window.location.href = '/leaderboard.html';
-          }).catch(function (err) {
-            alert('Commit notice: ' + err.message);
-          });
-        }
-      };
+    var user = getUser();
+    if (!user || user.role !== 'JUDGE') {
+      showNoTask('Judge account required');
+      if (subtitleEl) subtitleEl.textContent = 'Sign out and log in as a judge to score entries.';
+      return;
     }
+
+    if (lockBtn) { lockBtn.onclick = submit; }
+    api('/api/v1/scores/my-tasks').then(function (tasks) {
+      task = (tasks || []).filter(function (t) { return !(t.isLocked || t.locked) && t.status !== 'SUBMITTED'; })[0];
+      if (!task) { showNoTask('No open assignments'); return; }
+      if (teamEl) teamEl.textContent = task.teamName;
+      if (subtitleEl) subtitleEl.textContent = task.eventTitle + ' \u00b7 ' + task.roundName +
+        (task.fileName ? ' \u00b7 Submission: ' + task.fileName : '');
+      if (feedbackEl) { feedbackEl.value = ''; feedbackEl.placeholder = 'Written feedback for the team (optional)'; feedbackEl.maxLength = 1000; }
+      for (var i = 0; i < 4; i++) {
+        var c = task.criteria[i];
+        if (c) { var r = bindCard(i, c); if (r) rows.push(r); }
+        else {
+          var v = document.getElementById('c' + (i + 1) + '-val');
+          var card = v && v.closest('.rounded-xl');
+          if (card) card.style.display = 'none';
+        }
+      }
+      recompute();
+      setLockState(true);
+    }).catch(function (err) {
+      showNoTask('Could not load assignments');
+      if (subtitleEl) subtitleEl.textContent = err.message;
+    });
   }
 
   // Dynamic file hash calculation on submissions.html
@@ -253,7 +262,7 @@
 
   // Initialize on page load
   document.addEventListener('DOMContentLoaded', function () {
-    ensureSession();
+    if (!ensureSession()) return;
     mountRoleSwitcher();
     initLeaderboard();
     initJudging();

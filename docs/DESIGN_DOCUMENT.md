@@ -171,7 +171,7 @@ sequenceDiagram
     participant SQL as Azure SQL DB
 
     Participant->>Client: Select Event Round & Upload File (ZIP / MP4 / PDF)
-    Client->>API: POST /api/v1/submissions (multipart/form-data + JWT)
+    Client->>API: POST /api/v1/participant/submissions (multipart/form-data + JWT)
     API->>API: Validate JWT Role (PARTICIPANT) & File MIME/Size limits
     API->>Blob: Stream file buffer to container `submissions/{roundId}/{teamId}`
     Blob-->>API: Return Blob Storage URI & ETag
@@ -263,13 +263,24 @@ All endpoints require `Authorization: Bearer <JWT_TOKEN>` unless designated `Pub
 | `GET` | `/api/v1/events/{id}` | Public | Detailed event view with rounds | None | `200 OK`, `404 Not Found` |
 | `POST` | `/api/v1/rubrics` | `ADMIN` | Define reusable weighted rubric | `{ categoryId, name, criteria: [{ name, maxScore, weightage }] }` | `201 Created`, `422 Unprocessable (sum!=100%)` |
 
-### 5.3 Teams & Submissions (`/api/v1/teams`, `/api/v1/submissions`)
+### 5.3 Participant Portal: Teams, Submissions & Results (`/api/v1/participant`)
 
-| Method | Endpoint | Allowed Roles | Description | Request Body | Response Codes |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| `POST` | `/api/v1/teams` | `PARTICIPANT` | Register new team | `{ eventId, teamName, memberUserIds: [...] }` | `201 Created`, `400 Bad Request` |
-| `POST` | `/api/v1/submissions` | `PARTICIPANT` | Upload file to Azure Blob & record submission | `multipart/form-data: { roundId, teamId, file, notes }` | `201 Created`, `415 Unsupported Media`, `413 Too Large` |
-| `GET` | `/api/v1/submissions/{id}` | `ADMIN`, `JUDGE` | Get submission metadata & secure read SAS URL | None | `200 OK`, `403 Forbidden` |
+All endpoints below are implemented. They require a valid JWT with role `PARTICIPANT` (other roles receive `403 Forbidden`). The caller's identity is always taken from the verified JWT; no user id is accepted from the client, so a participant cannot act on behalf of another user (protects against IDOR / privilege escalation, see THREAT_MODEL.md).
+
+| Method | Endpoint | Description | Request | Response Codes |
+| :--- | :--- | :--- | :--- | :--- |
+| `POST` | `/api/v1/participant/teams` | Create a team; the caller becomes team lead | `{ eventId, teamName }` | `201 Created`, `400` (missing / name too long), `404` (event not found), `409` (already in a team for this event) |
+| `GET` | `/api/v1/participant/teams` | List the caller's teams with members | None | `200 OK` |
+| `POST` | `/api/v1/participant/teams/{teamId}/members` | Team lead adds a member by email | `{ email }` | `200 OK`, `400`, `403` (not the lead), `404` (team / user not found), `409` (user already in a team for the event) |
+| `POST` | `/api/v1/participant/submissions` | Upload a submission file for a round | `multipart/form-data: teamId, roundId, file` | `201 Created`, `400` (empty, over 50 MB, wrong extension, content/type mismatch), `403` (team or round not yours), `409` (round closed for submissions) |
+| `GET` | `/api/v1/participant/submissions` | List the caller's submissions | None | `200 OK` |
+| `GET` | `/api/v1/participant/results` | Results for the caller's teams, **finalized rounds only** (round status `COMPLETED`): final score, rank and per-criterion averages across judges | None | `200 OK` |
+
+**Upload validation (server side):** allowed extensions `.zip`, `.mp4`, `.pdf`; maximum size 50 MB; the file's leading bytes (magic number) must match the declared type; a SHA-256 hash is computed and stored for integrity.
+
+**Implementation note (storage):** the original design stores uploads in a private Azure Blob container and hands out time-limited SAS URLs. The current build stores files on the application server in a git-ignored `uploads/` directory (`scorevault.upload-dir`), and records metadata and the SHA-256 in the `submissions` table. Moving to Azure Blob (SAS read links for judges) is the planned production step and does not change the API above.
+
+**Planned / design-level endpoints** (not part of the current build): `GET /api/v1/events`, `GET /api/v1/submissions/{id}` (judge/admin read with SAS URL), `POST /api/v1/scores/{id}/override`, `GET /api/v1/analytics/judge-variance`.
 
 ### 5.4 Judge Assignment & Scoring (`/api/v1/judging`, `/api/v1/scores`)
 
