@@ -82,6 +82,7 @@
       document.querySelectorAll('.tab-content').forEach(function (tc) { tc.hidden = tc.id !== target; });
       if (target === 'tab-results') { loadResults(); }
       if (target === 'tab-teams') { loadTeams(); }
+      if (target === 'tab-submissions') { loadSubmissionsTab(); }
     });
   });
 
@@ -205,5 +206,98 @@
     }).catch(function (err) {
       container.textContent = 'Could not load results: ' + err.message;
     });
+  }
+
+  /* ---------- My Submissions (upload) ---------- */
+  var myTeams = [];
+  var allRounds = [];
+
+  function loadSubmissionsTab() {
+    Promise.all([api('/api/v1/participant/teams'), api('/api/v1/rounds')]).then(function (res) {
+      myTeams = res[0];
+      allRounds = res[1];
+      var teamSel = $('sub-team');
+      teamSel.innerHTML = '';
+      myTeams.forEach(function (t) {
+        var opt = el('option', t.teamName + ' · ' + t.eventTitle);
+        opt.value = t.teamId;
+        teamSel.appendChild(opt);
+      });
+      fillRounds();
+      loadMySubmissions();
+    }).catch(function (err) { $('sub-msg').textContent = err.message; });
+  }
+
+  function fillRounds() {
+    var team = myTeams.filter(function (t) { return String(t.teamId) === $('sub-team').value; })[0];
+    var sel = $('sub-round');
+    sel.innerHTML = '';
+    if (!team) { return; }
+    allRounds.filter(function (r) {
+      return r.eventId === team.eventId && (r.status === 'SCHEDULED' || r.status === 'IN_PROGRESS');
+    }).forEach(function (r) {
+      var o = el('option', r.roundName + ' (' + r.status + ')');
+      o.value = r.roundId;
+      sel.appendChild(o);
+    });
+  }
+  $('sub-team').addEventListener('change', fillRounds);
+
+  $('sub-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var msg = $('sub-msg');
+    var file = $('sub-file').files[0];
+    if (!file) { msg.textContent = 'Choose a file first.'; msg.className = 'error'; return; }
+    var fd = new FormData();
+    fd.append('teamId', $('sub-team').value);
+    fd.append('roundId', $('sub-round').value);
+    fd.append('file', file);
+    msg.textContent = 'Uploading...';
+    msg.className = 'meta';
+    fetch('/api/v1/participant/submissions', {
+      method: 'POST', headers: { 'Authorization': 'Bearer ' + token }, body: fd
+    }).then(function (res) {
+      return res.json().catch(function () { return {}; }).then(function (data) {
+        if (!res.ok) { throw new Error(data.error || data.message || ('Upload failed (' + res.status + ')')); }
+        return data;
+      });
+    }).then(function (s) {
+      msg.textContent = 'Uploaded ' + s.fileName + ' (SHA-256 ' + s.sha256.substring(0, 12) + '...)';
+      msg.className = 'success';
+      $('sub-file').value = '';
+      loadMySubmissions();
+    }).catch(function (err) {
+      msg.textContent = err.message;
+      msg.className = 'error';
+    });
+  });
+
+  function loadMySubmissions() {
+    var container = $('sub-list');
+    api('/api/v1/participant/submissions').then(function (list) {
+      container.innerHTML = '';
+      if (!list || list.length === 0) {
+        container.appendChild(el('p', 'No submissions yet.', 'meta'));
+        return;
+      }
+      var table = el('table');
+      var trh = el('tr');
+      ['Event / Round', 'Team', 'File', 'Size (KB)', 'SHA-256', 'Submitted'].forEach(function (h) { trh.appendChild(el('th', h)); });
+      var thead = el('thead'); thead.appendChild(trh); table.appendChild(thead);
+      var tbody = el('tbody');
+      list.forEach(function (s) {
+        var tr = el('tr');
+        tr.appendChild(el('td', s.eventTitle + ' · ' + s.roundName));
+        tr.appendChild(el('td', s.teamName));
+        tr.appendChild(el('td', s.fileName));
+        tr.appendChild(el('td', String(Math.round(s.sizeBytes / 1024))));
+        tr.appendChild(el('td', s.sha256.substring(0, 12) + '...'));
+        tr.appendChild(el('td', s.submittedAt.replace('T', ' ').substring(0, 19)));
+        tbody.appendChild(tr);
+      });
+      table.appendChild(tbody);
+      container.innerHTML = '';
+      container.appendChild(table);
+    }).catch(function (err) { container.textContent = 'Could not load submissions: ' + err.message; });
   }
 })();

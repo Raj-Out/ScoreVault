@@ -38,3 +38,4 @@ yarn-error.log*
 stitch_exports/
 .postman/
 postman/
+uploads/
