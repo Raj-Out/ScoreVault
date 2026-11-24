@@ -80,6 +80,30 @@
 
 **Run locally:** cd backend, set $env:SERVER_PORT = "8081" if 8080 is busy, run .\run.ps1. Never commit database passwords.
 
+---
+
+## 5. Update 24 Nov 2026 (Prince, branch feature/participant-access)
+
+**New since section 4:**
+- Participant web page: static/participant.html and participant.js (sign in, My Teams, create team, add member, My Results, My Submissions)
+- File upload: POST/GET /api/v1/participant/submissions (.zip/.mp4/.pdf, max 50 MB, type + magic-byte check, SHA-256 stored, files saved locally in backend/uploads, which is git-ignored). Azure Blob is NOT wired in; the design says SAS links, the code stores locally.
+- Round 1 (Preliminary Prototype Screening) was finalized with sp_finalize_and_lock_round_scores, so GET /results shows Team AlphaBits #1 with 90.25. Rounds 2 to 5 are still SCHEDULED with no judge assignments.
+
+**Branch:** feature/participant-access (not merged into main yet). Run: git fetch, git checkout feature/participant-access, git pull.
+
+**Still to do (in this order):**
+1. Redeploy backend to Azure App Service (manual; no GitHub Actions workflow exists). Test the live site afterwards.
+2. Change the scorevault_app database password (the old one is in git history of database/app_login.sql, commit c7a243e) and update DB_PASSWORD in the App Service settings to match.
+3. Create one judge assignment in a SCHEDULED round so a judge can be shown scoring live (may need the round status changed first).
+4. Remove the personal test upload (file_name OS_Unit-1to5_Notes_Handwritten.pdf) from the submissions table if still present.
+5. Update docs/DESIGN_DOCUMENT.md with the /api/v1/participant/** endpoints; write the project report and user manual.
+6. scorevault-bridge.js has demo passwords and an auto-login as admin; remove or be ready to explain it. Check that index.html shows the user's name (login returns "name", app.js reads "fullName").
+7. Merge to main when tested (pull request on GitHub), then rehearse the viva. Evaluation is 27 Nov before 2:30.
+
+**Run locally:** cd backend; $env:SERVER_PORT = "8081" if Steam or another program uses 8080; .\run.ps1. Never commit database passwords.
+
+
+
 
 
 
