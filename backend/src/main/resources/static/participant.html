@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ScoreVault · Participant Portal</title>
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    [hidden] { display: none !important; }
+    .page { max-width: 900px; margin: 0 auto; padding: 1.5rem; }
+    .row { display: flex; gap: .5rem; flex-wrap: wrap; align-items: center; margin: .5rem 0; }
+    .tabs { display: flex; gap: .5rem; margin: 1rem 0; }
+    table { width: 100%; border-collapse: collapse; margin-top: .5rem; }
+    th, td { text-align: left; padding: .4rem .6rem; border-bottom: 1px solid rgba(128,128,128,.3); }
+  </style>
+</head>
+<body>
+<div class="page">
+  <h1>ScoreVault · Participant Portal</h1>
+  <p class="meta"><a href="/">Home</a> · <a href="/leaderboard.html">Live leaderboard</a></p>
+
+  <section id="login-view" class="card">
+    <h2>Sign in</h2>
+    <form id="login-form">
+      <div class="row"><input id="email" type="email" placeholder="Email" required autocomplete="username"></div>
+      <div class="row"><input id="password" type="password" placeholder="Password" required autocomplete="current-password"></div>
+      <button type="submit">Sign in</button>
+      <p id="login-error" class="error"></p>
+    </form>
+  </section>
+
+  <section id="app-view" hidden>
+    <div class="row"><strong id="who"></strong><button id="logout" class="secondary" type="button">Sign out</button></div>
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="tab-teams" type="button">My Teams</button>
+      <button class="tab-btn" data-tab="tab-results" type="button">My Results</button>
+    </div>
+
+    <div id="tab-teams" class="tab-content">
+      <div class="card">
+        <h3>Register a new team</h3>
+        <form id="team-form">
+          <div class="row">
+            <select id="team-event" required></select>
+            <input id="team-name" placeholder="Team name" maxlength="100" required>
+            <button type="submit">Create team</button>
+          </div>
+          <p id="team-msg" class="meta"></p>
+        </form>
+      </div>
+      <div id="teams-list"></div>
+    </div>
+
+    <div id="tab-results" class="tab-content" hidden>
+      <div id="results-list"></div>
+    </div>
+  </section>
+</div>
+<script src="/participant.js"></script>
+</body>
+</html>
