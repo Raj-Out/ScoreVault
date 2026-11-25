@@ -25,15 +25,19 @@ public class SecurityConfig {
             .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .headers(h -> h.contentSecurityPolicy(csp -> csp.policyDirectives(
                     "default-src 'self'; "
-                    + "script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; "
-                    + "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
+                    + "script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://accounts.google.com/gsi/client; "
+                    + "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com/gsi/style; "
                     + "font-src 'self' https://fonts.gstatic.com; "
                     + "img-src 'self' data: https://lh3.googleusercontent.com https://fonts.gstatic.com; "
+                    + "connect-src 'self' https://accounts.google.com/gsi/; "
+                    + "frame-src https://accounts.google.com/gsi/; "
                     + "base-uri 'self'; form-action 'self'; frame-ancestors 'none'")))
             .authorizeHttpRequests(auth -> auth
                     .requestMatchers(HttpMethod.GET, "/", "/*.html", "/*.js", "/*.css", "/screenshots/**", "/screens/**", "/favicon.ico").permitAll()
                     .requestMatchers("/error").permitAll()
                     .requestMatchers(HttpMethod.POST, "/api/v1/auth/login").permitAll()
+                    .requestMatchers(HttpMethod.POST, "/api/v1/auth/google").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/api/v1/auth/google/config").permitAll()
                     .requestMatchers(HttpMethod.GET, "/api/v1/rounds", "/api/v1/leaderboard/**").permitAll()
                     .requestMatchers("/api/v1/**").authenticated()
                     .anyRequest().denyAll())

@@ -145,6 +145,89 @@
   function initLogin() {
     var form = $('login-form');
     if (!form) { return; }
+    var pendingGoogleCredential = null;
+    var profileForm = $('google-profile-form');
+    function finishLogin(result) {
+      sessionStorage.setItem(TOKEN_KEY, result.token);
+      sessionStorage.setItem(USER_KEY, JSON.stringify(result.user));
+      updateAccount();
+      if (result.user.role === 'ADMIN') { window.location.href = '/admin.html'; }
+      else if (result.user.role === 'JUDGE') { window.location.href = '/judging.html'; }
+      else { window.location.href = '/submissions.html'; }
+    }
+    async function googleLogin(credential, affiliation) {
+      var result = await api('/api/v1/auth/google', {
+        method: 'POST', body: { credential: credential, affiliation: affiliation || '' }
+      });
+      pendingGoogleCredential = null;
+      finishLogin(result);
+    }
+    async function setupGoogleSignIn() {
+      var buttonContainer = $('google-button');
+      if (!buttonContainer) { return; }
+      try {
+        var config = await api('/api/v1/auth/google/config');
+        if (!config.enabled) {
+          status('google-status', 'Google sign-in is not configured yet.');
+          return;
+        }
+        var attempts = 0;
+        var timer = window.setInterval(function () {
+          attempts += 1;
+          if (window.google && window.google.accounts && window.google.accounts.id) {
+            window.clearInterval(timer);
+            window.google.accounts.id.initialize({
+              client_id: config.clientId,
+              callback: function (response) {
+                pendingGoogleCredential = response.credential;
+                if (profileForm) { profileForm.hidden = true; }
+                status('google-status', 'Verifying your Google account…');
+                googleLogin(pendingGoogleCredential, '').catch(function (error) {
+                  if (error.status === 428) {
+                    if (profileForm) {
+                      profileForm.hidden = false;
+                      $('google-affiliation').required = true;
+                    }
+                    status('google-status', 'Add your school or organization to finish creating your participant account.');
+                    return;
+                  }
+                  status('google-status', error.message, 'error');
+                });
+              }
+            });
+            window.google.accounts.id.renderButton(buttonContainer, {
+              type: 'standard', theme: 'outline', size: 'large', text: 'continue_with', shape: 'rectangular'
+            });
+          } else if (attempts >= 40) {
+            window.clearInterval(timer);
+            status('google-status', 'Google sign-in could not load. Check your connection or browser settings.', 'error');
+          }
+        }, 250);
+      } catch (error) {
+        status('google-status', error.message, 'error');
+      }
+    }
+    setupGoogleSignIn();
+    if (profileForm) {
+      profileForm.addEventListener('submit', async function (event) {
+        event.preventDefault();
+        if (!pendingGoogleCredential) {
+          status('google-status', 'Please choose Continue with Google again.', 'error');
+          profileForm.hidden = true;
+          return;
+        }
+        var button = $('google-profile-submit');
+        button.disabled = true;
+        status('google-status', 'Creating your participant account…');
+        try {
+          await googleLogin(pendingGoogleCredential, $('google-affiliation').value.trim());
+        } catch (error) {
+          status('google-status', error.message, 'error');
+        } finally {
+          button.disabled = false;
+        }
+      });
+    }
     var password = $('password');
     var passwordToggle = document.querySelector('.password-toggle');
     if (passwordToggle) {
@@ -165,13 +248,8 @@
           method: 'POST',
           body: { email: $('email').value.trim(), password: $('password').value }
         });
-        sessionStorage.setItem(TOKEN_KEY, result.token);
-        sessionStorage.setItem(USER_KEY, JSON.stringify(result.user));
         $('password').value = '';
-        updateAccount();
-        if (result.user.role === 'ADMIN') { window.location.href = '/admin.html'; }
-        else if (result.user.role === 'JUDGE') { window.location.href = '/judging.html'; }
-        else { window.location.href = '/submissions.html'; }
+        finishLogin(result);
       } catch (error) {
         status('login-status', error.message, 'error');
         button.disabled = false;

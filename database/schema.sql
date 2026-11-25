@@ -46,11 +46,14 @@ CREATE TABLE users (
     full_name VARCHAR(150) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     password_hash VARCHAR(255) NOT NULL,
+    google_subject VARCHAR(255) NULL,
     affiliation VARCHAR(200) NOT NULL, -- College / University / Organization name
     is_active BIT NOT NULL DEFAULT 1,
     created_at DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME(),
     CONSTRAINT fk_users_role FOREIGN KEY (role_id) REFERENCES roles(role_id)
 );
+GO
+CREATE UNIQUE INDEX ux_users_google_subject ON users(google_subject) WHERE google_subject IS NOT NULL;
 GO
 
 -- Table 3: event_categories

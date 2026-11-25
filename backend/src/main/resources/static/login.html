@@ -17,7 +17,18 @@
     <section class="panel">
       <p class="eyebrow">Your workspace</p>
       <h1>Sign in to ScoreVault</h1>
-      <p class="muted">Use the account provided by your event organiser.</p>
+      <p class="muted">Sign in with Google or use an existing ScoreVault account.</p>
+      <div id="google-signin" class="form-stack" aria-label="Google sign-in">
+        <div id="google-button"></div>
+        <p id="google-status" class="form-message" role="status" aria-live="polite"></p>
+        <form id="google-profile-form" class="form-stack" hidden>
+          <label for="google-affiliation">School or organization</label>
+          <input id="google-affiliation" name="affiliation" type="text" maxlength="200" autocomplete="organization">
+          <button id="google-profile-submit" class="button" type="submit">Create participant account</button>
+        </form>
+        <p class="muted">New Google accounts join as participants. Ask an administrator to assign judge or admin access.</p>
+      </div>
+      <p class="muted">Or sign in with your ScoreVault account</p>
       <form id="login-form" class="form-stack">
         <label for="email">Email</label>
         <input id="email" name="email" type="email" autocomplete="username" required>
@@ -28,5 +39,6 @@
       </form>
     </section>
   </main>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
 </body>
 </html>
