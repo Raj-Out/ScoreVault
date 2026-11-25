@@ -28,13 +28,14 @@ public class SecurityConfig {
                     + "script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; "
                     + "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
                     + "font-src 'self' https://fonts.gstatic.com; "
-                    + "img-src 'self' data: https://lh3.googleusercontent.com https://fonts.gstatic.com; "
+                    + "img-src 'self' data: https://fonts.gstatic.com; "
                     + "base-uri 'self'; form-action 'self'; frame-ancestors 'none'")))
             .authorizeHttpRequests(auth -> auth
                     .requestMatchers(HttpMethod.GET, "/", "/*.html", "/*.js", "/*.css", "/screenshots/**", "/screens/**", "/favicon.ico").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/actuator/health").permitAll()
                     .requestMatchers("/error").permitAll()
                     .requestMatchers(HttpMethod.POST, "/api/v1/auth/login").permitAll()
-                    .requestMatchers(HttpMethod.GET, "/api/v1/rounds", "/api/v1/leaderboard/**").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/api/v1/rounds", "/api/v1/categories", "/api/v1/leaderboard/**").permitAll()
                     .requestMatchers("/api/v1/**").authenticated()
                     .anyRequest().denyAll())
             .exceptionHandling(ex -> ex.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))

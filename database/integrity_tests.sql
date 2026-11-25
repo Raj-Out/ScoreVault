@@ -63,8 +63,10 @@ GO
 
 -- T5: a locked score cannot be edited  (expect 50030)
 BEGIN TRY
+    BEGIN TRANSACTION;
     UPDATE scores SET feedback_json_url = feedback_json_url + '?edited' WHERE score_id = 1;
     PRINT 'T5  FAIL: a locked score was edited';
+    ROLLBACK TRANSACTION;
 END TRY
 BEGIN CATCH
     PRINT CASE WHEN ERROR_NUMBER() = 50030 THEN 'T5  PASS: ' ELSE 'T5  FAIL (wrong error): ' END + ERROR_MESSAGE();
@@ -74,8 +76,10 @@ GO
 
 -- T6: a locked score cannot be deleted  (expect 50030)
 BEGIN TRY
+    BEGIN TRANSACTION;
     DELETE FROM scores WHERE score_id = 1;
     PRINT 'T6  FAIL: a locked score was deleted';
+    ROLLBACK TRANSACTION;
 END TRY
 BEGIN CATCH
     PRINT CASE WHEN ERROR_NUMBER() = 50030 THEN 'T6  PASS: ' ELSE 'T6  FAIL (wrong error): ' END + ERROR_MESSAGE();
@@ -144,8 +148,10 @@ GO
 
 -- T11: audit_log cannot be updated  (expect 50060)
 BEGIN TRY
+    BEGIN TRANSACTION;
     UPDATE audit_log SET action_type = 'TAMPERED';
     PRINT 'T11 FAIL: audit_log was updated';
+    ROLLBACK TRANSACTION;
 END TRY
 BEGIN CATCH
     PRINT CASE WHEN ERROR_NUMBER() = 50060 THEN 'T11 PASS: ' ELSE 'T11 FAIL (wrong error): ' END + ERROR_MESSAGE();
@@ -155,8 +161,10 @@ GO
 
 -- T12: audit_log cannot be deleted  (expect 50060)
 BEGIN TRY
+    BEGIN TRANSACTION;
     DELETE FROM audit_log;
     PRINT 'T12 FAIL: audit_log rows were deleted';
+    ROLLBACK TRANSACTION;
 END TRY
 BEGIN CATCH
     PRINT CASE WHEN ERROR_NUMBER() = 50060 THEN 'T12 PASS: ' ELSE 'T12 FAIL (wrong error): ' END + ERROR_MESSAGE();
