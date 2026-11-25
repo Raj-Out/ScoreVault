@@ -3,8 +3,6 @@ package com.scorevault.auth;
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,28 +28,12 @@ public class AuthController {
     private final PasswordEncoder encoder;
     private final JwtService jwtService;
     private final AuditService audit;
-    private final GoogleAuthService googleAuth;
-    private final String googleClientId;
 
-    public AuthController(UserRepository users, PasswordEncoder encoder, JwtService jwtService, AuditService audit,
-                          GoogleAuthService googleAuth,
-                          @Value("${scorevault.google.client-id:}") String googleClientId) {
+    public AuthController(UserRepository users, PasswordEncoder encoder, JwtService jwtService, AuditService audit) {
         this.users = users;
         this.encoder = encoder;
         this.jwtService = jwtService;
         this.audit = audit;
-        this.googleAuth = googleAuth;
-        this.googleClientId = googleClientId;
-    }
-
-    @GetMapping("/google/config")
-    public GoogleConfig googleConfig() {
-        return new GoogleConfig(!googleClientId.isBlank(), googleClientId);
-    }
-
-    @PostMapping("/google")
-    public LoginResponse googleLogin(@Valid @RequestBody GoogleLoginRequest request, HttpServletRequest http) {
-        return googleAuth.login(request, http.getRemoteAddr());
     }
 
     @PostMapping("/login")
@@ -83,6 +65,4 @@ public class AuthController {
     private static String abbreviate(String text) {
         return text.length() > 100 ? text.substring(0, 100) : text;
     }
-
-    public record GoogleConfig(boolean enabled, String clientId) {}
 }

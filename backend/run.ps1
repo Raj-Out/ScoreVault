@@ -53,11 +53,5 @@ if (-not $env:JWT_SECRET) {
     $env:JWT_SECRET = [Convert]::ToBase64String($bytes)
 }
 
-# Google OAuth client IDs are public identifiers. Leave empty until a Web OAuth client is configured.
-if ([string]::IsNullOrWhiteSpace($env:GOOGLE_CLIENT_ID)) {
-    $googleClientId = Read-Host "Google OAuth Web client ID (optional; press Enter to skip)"
-    if (-not [string]::IsNullOrWhiteSpace($googleClientId)) { $env:GOOGLE_CLIENT_ID = $googleClientId.Trim() }
-}
-
 Write-Host "Starting ScoreVault on http://localhost:8080  (first start downloads libraries; the first database call may take a minute)"
 & $mvn spring-boot:run
