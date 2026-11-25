@@ -16,8 +16,8 @@ Use Azure App Service (Java SE 17) in the same Azure region as Azure SQL. Use Gi
 4. In Azure SQL networking, allow the App Service's outbound IP addresses to reach the SQL server. Recheck this list after changing the App Service plan or region. Avoid enabling the broad “Allow Azure services and resources to access this server” rule for production when a narrower firewall rule or private networking is available.
 5. For a new, empty database, run `database/schema.sql`, `database/integrity_triggers.sql`, and `database/leaderboard_tiebreak.sql`, then configure the limited application user with `database/app_login.sql` (read its instructions first). Run `database/seed_data.sql` only when you intentionally want sample data. **Never run `schema.sql` against an existing database:** it drops and recreates tables.
 6. For a public production site, replace or disable seeded demo users and their published default passwords before launch. Keep demo accounts only in a development/demo database. Create your actual admin, judge, and participant accounts through the app's admin user management.
-7. Add `AZURE_WEBAPP_NAME` and an Azure deployment credential as GitHub Actions secrets only if you configure an automatic deploy workflow. The included workflow currently builds and verifies on pushes/PRs; it does not deploy by itself.
-8. After deploying, check `https://<app-host>/actuator/health`, sign in with each role, and check the API pages below.
+7. For manual deployment, download the App Service publish profile and add its contents to the GitHub repository secret `AZURE_WEBAPP_PUBLISH_PROFILE` (Repository Settings -> Secrets and variables -> Actions). Never commit or share the profile. The manual workflow at `.github/workflows/deploy-azure.yml` verifies, packages, and deploys the JAR when run from GitHub Actions; ordinary pushes do not deploy. The separate `ci.yml` workflow continues to verify pushes and pull requests.
+8. After deploying, configure the App Service health check path as `/actuator/health`, then check `https://<app-host>/actuator/health`, sign in with each role, and check the API pages below.
 
 ## Free preview option
 
