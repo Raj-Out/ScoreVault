@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ScoreVault · Participant Portal</title>
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    :root { --neon: #22e4ff; --neon2: #39ff88; color-scheme: dark; }
+
+    [hidden] { display: none !important; }
+    .page { max-width: 900px; margin: 0 auto; padding: 1.5rem; }
+    .row { display: flex; gap: .5rem; flex-wrap: wrap; align-items: center; margin: .5rem 0; }
+    .tabs { display: flex; gap: .5rem; margin: 1rem 0; }
+    table { width: 100%; border-collapse: collapse; margin-top: .5rem; }
+    th, td { text-align: left; padding: .5rem .6rem; border-bottom: 1px solid #263049; }
+    th { color: var(--neon); font-weight: 600; }
+
+    body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: #0a0e17; color: #e6edf7; }
+    h1 { color: #fff; text-shadow: 0 0 12px rgba(34,228,255,.55); }
+    h2, h3 { color: var(--neon); }
+    a { color: var(--neon); }
+
+    .card { background: #111827; border: 1px solid #1f3a4d; border-radius: 10px; padding: 1rem 1.25rem; margin: 1rem 0;
+            box-shadow: 0 0 14px rgba(34,228,255,.12); }
+
+    button { background: #3a4151; color: #fff; border: 1px solid #4b5563; border-radius: 6px; padding: .5rem 1rem; cursor: pointer; font: inherit; }
+    button:hover { border-color: var(--neon); box-shadow: 0 0 8px rgba(34,228,255,.5); }
+    button.secondary { background: #2b303c; }
+    .tab-btn.active { border-color: var(--neon); color: var(--neon); box-shadow: 0 0 10px rgba(34,228,255,.55); }
+
+    input, select { padding: .5rem .6rem; border: 1px solid #2b3550; border-radius: 6px; font: inherit; min-width: 12rem;
+                    background: #0d1422; color: #e6edf7; }
+    input:focus, select:focus { outline: none; border-color: var(--neon); box-shadow: 0 0 8px rgba(34,228,255,.5); }
+
+    .meta { color: #8b97ad; font-size: .9rem; }
+    .error { color: #ff5c7a; }
+    .success { color: var(--neon2); }
+    .badge { background: rgba(57,255,136,.12); color: var(--neon2); border: 1px solid rgba(57,255,136,.45);
+             border-radius: 999px; padding: .1rem .6rem; font-size: .8rem; }
+  </style>
+</head>
+<body>
+<div class="page">
+  <h1>ScoreVault · Participant Portal</h1>
+  <p class="meta"><a href="/">Home</a> · <a href="/leaderboard.html">Live leaderboard</a></p>
+
+  <section id="login-view" class="card">
+    <h2>Sign in</h2>
+    <form id="login-form">
+      <div class="row"><input id="email" type="email" placeholder="Email" required autocomplete="username"></div>
+      <div class="row"><input id="password" type="password" placeholder="Password" required autocomplete="current-password"></div>
+      <button type="submit">Sign in</button>
+      <p id="login-error" class="error"></p>
+    </form>
+  </section>
+
+  <section id="app-view" hidden>
+    <div class="row"><strong id="who"></strong><button id="logout" class="secondary" type="button">Sign out</button></div>
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="tab-teams" type="button">My Teams</button>
+      <button class="tab-btn" data-tab="tab-results" type="button">My Results</button>
+      <button class="tab-btn" data-tab="tab-submissions" type="button">My Submissions</button>
+    </div>
+
+    <div id="tab-teams" class="tab-content">
+      <div class="card">
+        <h3>Register a new team</h3>
+        <form id="team-form">
+          <div class="row">
+            <select id="team-event" required></select>
+            <input id="team-name" placeholder="Team name" maxlength="100" required>
+            <button type="submit">Create team</button>
+          </div>
+          <p id="team-msg" class="meta"></p>
+        </form>
+      </div>
+      <div id="teams-list"></div>
+    </div>
+
+    <div id="tab-results" class="tab-content" hidden>
+      <div id="results-list"></div>
+    </div>
+
+    <div id="tab-submissions" class="tab-content" hidden>
+      <div class="card">
+        <h3>Upload a submission</h3>
+        <p class="meta">Allowed: .zip, .mp4, .pdf (max 50 MB). Uploading again replaces your earlier file for that round.</p>
+        <form id="sub-form">
+          <div class="row"><select id="sub-team"></select><select id="sub-round"></select></div>
+          <div class="row"><input id="sub-file" type="file" accept=".zip,.mp4,.pdf"><button type="submit">Upload</button></div>
+          <p id="sub-msg" class="meta"></p>
+        </form>
+      </div>
+      <div id="sub-list"></div>
+    </div>
+  </section>
+</div>
+<script src="/participant.js"></script>
+</body>
+</html>
