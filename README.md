@@ -103,7 +103,7 @@ ScoreVault/
 
 ## 🗄️ Database Setup (Azure SQL Database)
 
-Run these files, in this order, on an empty database (VS Code with the SQL Server (mssql) extension, or SSMS):
+Create or use your own Azure SQL database, then run these files in order on that empty database (VS Code with the SQL Server (mssql) extension, or SSMS):
 
 1. `database/schema.sql`
 2. `database/integrity_triggers.sql`

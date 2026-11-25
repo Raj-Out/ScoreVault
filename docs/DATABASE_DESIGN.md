@@ -346,7 +346,7 @@ The scripts run in this order on an empty Azure SQL Database (free serverless ti
 
 ## 9. Application Database Account (Least Privilege)
 
-The backend does not connect as the server administrator. `database/app_login.sql` creates a contained database user, `scorevault_app`, that exists only inside `scorevault-db` and cannot log in to the server.
+The backend does not connect as the server administrator. `database/app_login.sql` creates a contained database user, `scorevault_app`, that exists only inside your ScoreVault database and cannot log in to the server.
 
 | Permission | Granted or denied |
 | :--- | :--- |

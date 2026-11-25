@@ -24,14 +24,27 @@ if (-not (Get-Command mvn -ErrorAction SilentlyContinue)) {
     }
 }
 
+# Ask for the developer's own Azure SQL endpoint. It is kept in this PowerShell process only.
+if ([string]::IsNullOrWhiteSpace($env:DB_URL)) {
+    $env:DB_URL = Read-Host "Azure SQL JDBC URL (jdbc:sqlserver://<server>.database.windows.net:1433;database=<database>;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=120)"
+}
+if ([string]::IsNullOrWhiteSpace($env:DB_URL)) {
+    throw "DB_URL is required. Enter your own Azure SQL JDBC URL or set DB_URL before running this script."
+}
+
 # The database password is typed here and kept only in this window's memory. It is never saved to a file.
-$dbUser = Read-Host "Database user (press Enter for scorevault_app)"
-if ([string]::IsNullOrWhiteSpace($dbUser)) { $dbUser = "scorevault_app" }
-$env:DB_USERNAME = $dbUser
-$secure = Read-Host "Password for $dbUser" -AsSecureString
-$bstr = [Runtime.InteropServices.Marshal]::SecureStringToBSTR($secure)
-$env:DB_PASSWORD = [Runtime.InteropServices.Marshal]::PtrToStringBSTR($bstr)
-[Runtime.InteropServices.Marshal]::ZeroFreeBSTR($bstr)
+if ([string]::IsNullOrWhiteSpace($env:DB_USERNAME)) {
+    $dbUser = Read-Host "Database user (press Enter for scorevault_app)"
+    if ([string]::IsNullOrWhiteSpace($dbUser)) { $dbUser = "scorevault_app" }
+    $env:DB_USERNAME = $dbUser
+}
+
+if ([string]::IsNullOrWhiteSpace($env:DB_PASSWORD)) {
+    $secure = Read-Host "Password for $($env:DB_USERNAME)" -AsSecureString
+    $bstr = [Runtime.InteropServices.Marshal]::SecureStringToBSTR($secure)
+    $env:DB_PASSWORD = [Runtime.InteropServices.Marshal]::PtrToStringBSTR($bstr)
+    [Runtime.InteropServices.Marshal]::ZeroFreeBSTR($bstr)
+}
 
 # A fresh random JWT signing secret for each run (tokens stop working after a restart).
 if (-not $env:JWT_SECRET) {

@@ -4,7 +4,7 @@
    so the running app no longer uses the server admin login (scoreadmin).
 
    Target : Azure SQL Database (T-SQL)
-   Run as : scoreadmin, connected to the scorevault-db database (not master)
+   Run as : a database administrator, connected to your ScoreVault database (not master)
    Run    : after schema.sql, integrity_triggers.sql, leaderboard_tiebreak.sql
             and seed_data.sql.  Safe to re-run.
 
@@ -21,7 +21,12 @@
 IF NOT EXISTS (SELECT 1 FROM sys.database_principals WHERE name = 'scorevault_app')
 BEGIN
     -- A contained database user: it exists only inside this database and cannot log in to the server.
-    CREATE USER scorevault_app WITH PASSWORD = N'AdminSecurePass#2026';  -- REPLACE WITH A STRONG PASSWORD
+    CREATE USER scorevault_app WITH PASSWORD = N'REPLACE_WITH_A_STRONG_PASSWORD';
+END
+ELSE
+BEGIN
+    -- Re-running this script also rotates the existing contained user's password.
+    ALTER USER scorevault_app WITH PASSWORD = N'REPLACE_WITH_A_STRONG_PASSWORD';
 END;
 GO
 
@@ -43,7 +48,7 @@ DENY INSERT, UPDATE, DELETE ON dbo.event_categories TO scorevault_app;
 GO
 
 /* ----------------------------------------------------------------------------
-   VERIFY (optional): connect to scorevault-db AS scorevault_app, then run these.
+   VERIFY (optional): connect to your ScoreVault database AS scorevault_app, then run these.
    Each statement marked "denied" should fail with a permission error.
 
    SELECT USER_NAME();                               -- scorevault_app

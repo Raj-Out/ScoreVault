@@ -142,9 +142,6 @@ public class ScoringService {
 
         BigDecimal totalWeighted = BigDecimal.ZERO;
 
-        // Clean out any previous draft scores if re-submitting before lock
-        jdbc.update("DELETE FROM scores WHERE assignment_id = ? AND is_locked = 0", req.assignmentId());
-
         for (CriterionScoreInput input : req.criteriaScores()) {
             BigDecimal[] meta = templateCriteria.get(input.criterionId());
             if (meta == null) {
