@@ -50,6 +50,7 @@ public class SubmissionController {
                 .filename(download.fileName(), StandardCharsets.UTF_8).build();
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, disposition.toString())
+                .header(HttpHeaders.CACHE_CONTROL, "no-store")
                 .contentType(MediaType.parseMediaType(download.mimeType()))
                 .contentLength(download.content().length)
                 .body(download.content());

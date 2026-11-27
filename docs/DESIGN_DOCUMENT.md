@@ -278,7 +278,7 @@ All endpoints below are implemented. They require a valid JWT with role `PARTICI
 
 **Upload validation (server side):** allowed extensions `.zip`, `.mp4`, `.pdf`; maximum size 50 MB; the file's leading bytes (magic number) must match the declared type; a SHA-256 hash is computed and stored for integrity.
 
-**Implementation note (storage):** the original design stores uploads in a private Azure Blob container and hands out time-limited SAS URLs. The current build stores files on the application server in a git-ignored `uploads/` directory (`scorevault.upload-dir`), and records metadata and the SHA-256 in the `submissions` table. Moving to Azure Blob (SAS read links for judges) is the planned production step and does not change the API above.
+**Implementation note (storage):** participant uploads are stored in a private Azure Blob container using the App Service system-assigned managed identity. The `submissions` table stores the private Blob URI, metadata, and SHA-256 digest. Participants and assigned judges retrieve files through the authenticated application endpoint; the app does not expose public Blob URLs or SAS links.
 
 **Planned / design-level endpoints** (not part of the current build): `GET /api/v1/events`, `GET /api/v1/submissions/{id}` (judge/admin read with SAS URL), `POST /api/v1/scores/{id}/override`, `GET /api/v1/analytics/judge-variance`.
 

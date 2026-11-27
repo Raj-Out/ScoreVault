@@ -243,6 +243,31 @@
   }
   $('sub-team').addEventListener('change', fillRounds);
 
+  function downloadSubmission(submissionId) {
+    fetch('/api/v1/submissions/' + encodeURIComponent(submissionId) + '/file', {
+      headers: { 'Authorization': 'Bearer ' + token }
+    }).then(function (res) {
+      if (!res.ok) {
+        return res.json().catch(function () { return {}; }).then(function (data) {
+          throw new Error(data.error || data.message || ('Download failed (' + res.status + ')'));
+        });
+      }
+      var disposition = res.headers.get('Content-Disposition') || '';
+      return res.blob().then(function (blob) {
+        var match = disposition.match(/filename\*=UTF-8''([^;]+)|filename="?([^";]+)"?/i);
+        var name = match ? decodeURIComponent(match[1] || match[2]) : 'submission';
+        var url = URL.createObjectURL(blob);
+        var link = document.createElement('a');
+        link.href = url;
+        link.download = name;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        window.setTimeout(function () { URL.revokeObjectURL(url); }, 60000);
+      });
+    }).catch(function (err) { window.alert(err.message); });
+  }
+
   $('sub-form').addEventListener('submit', function (e) {
     e.preventDefault();
     var msg = $('sub-msg');
@@ -282,7 +307,7 @@
       }
       var table = el('table');
       var trh = el('tr');
-      ['Event / Round', 'Team', 'File', 'Size (KB)', 'SHA-256', 'Submitted'].forEach(function (h) { trh.appendChild(el('th', h)); });
+      ['Event / Round', 'Team', 'File', 'Size (KB)', 'SHA-256', 'Submitted', 'Download'].forEach(function (h) { trh.appendChild(el('th', h)); });
       var thead = el('thead'); thead.appendChild(trh); table.appendChild(thead);
       var tbody = el('tbody');
       list.forEach(function (s) {
@@ -293,6 +318,12 @@
         tr.appendChild(el('td', String(Math.round(s.sizeBytes / 1024))));
         tr.appendChild(el('td', s.sha256.substring(0, 12) + '...'));
         tr.appendChild(el('td', s.submittedAt.replace('T', ' ').substring(0, 19)));
+        var downloadCell = el('td');
+        var download = el('button', 'Download');
+        download.type = 'button';
+        download.addEventListener('click', function () { downloadSubmission(s.submissionId); });
+        downloadCell.appendChild(download);
+        tr.appendChild(downloadCell);
         tbody.appendChild(tr);
       });
       table.appendChild(tbody);
