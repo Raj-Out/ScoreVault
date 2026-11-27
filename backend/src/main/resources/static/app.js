@@ -603,9 +603,11 @@
           details.textContent = team.eventTitle + ' · Team lead: ' + team.leadName;
           card.append(heading, details);
           if (team.members.length) {
-            card.appendChild(makeTable(['Member', 'Email', 'Institution'], team.members.map(function (member) {
+            var membersTable = makeTable(['Member', 'Email', 'Institution'], team.members.map(function (member) {
               return [member.fullName, member.email, member.affiliation];
-            })));
+            }));
+            membersTable.className = 'member-table';
+            card.appendChild(membersTable);
           } else {
             var solo = document.createElement('p');
             solo.className = 'muted';

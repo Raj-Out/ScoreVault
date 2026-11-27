@@ -96,6 +96,12 @@ tbody tr:last-child td { border-bottom: 0; }
 .notice { padding: 14px 16px; border: 1px solid #f0d49a; border-radius: 10px; background: #fff8e9; color: var(--amber); font-size: 14px; line-height: 1.55; }
 .notice:empty { display: none; }
 .task-card { padding: 20px; border: 1px solid var(--line); border-radius: 12px; background: #fff; }
+.content-grid > *, .task-card, #my-teams { min-width: 0; }
+.member-table { table-layout: fixed; }
+.member-table th:nth-child(1) { width: 25%; }
+.member-table th:nth-child(2) { width: 43%; }
+.member-table th:nth-child(3) { width: 32%; }
+.member-table th, .member-table td { overflow-wrap: anywhere; word-break: break-word; }
 .task-card h2 { margin-bottom: 6px; font-size: 18px; }
 .task-card .task-meta { margin: 0 0 16px; color: var(--muted); font-size: 13px; }
 .submission-upload { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); }
