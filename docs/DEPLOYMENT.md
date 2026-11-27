@@ -13,11 +13,18 @@ Use Azure App Service (Java SE 17) in the same Azure region as Azure SQL. Use Gi
    - `DB_USERNAME` — `scorevault_app`
    - `DB_PASSWORD` — the password for the SQL application account
    - `JWT_SECRET` — a stable, random secret of at least 32 bytes. Keep the same value across deploys and restarts so active sessions remain valid. Store it in App Service settings or Key Vault.
+   - `AZURE_STORAGE_ACCOUNT_URL` — `https://scorevaultfiles1127raj.blob.core.windows.net`
+   - `AZURE_STORAGE_CONTAINER` — `participant-submissions`
+   - Enable the App Service **system-assigned managed identity** and grant it **Storage Blob Data Contributor** on the storage account. The application creates the container as private on its first upload. Do not add a storage account key or connection string.
 4. In Azure SQL networking, allow the App Service's outbound IP addresses to reach the SQL server. Recheck this list after changing the App Service plan or region. Avoid enabling the broad “Allow Azure services and resources to access this server” rule for production when a narrower firewall rule or private networking is available.
 5. For a new, empty database, run `database/schema.sql`, `database/integrity_triggers.sql`, and `database/leaderboard_tiebreak.sql`, then configure the limited application user with `database/app_login.sql` (read its instructions first). Run `database/seed_data.sql` only when you intentionally want sample data. **Never run `schema.sql` against an existing database:** it drops and recreates tables.
 6. For a public production site, replace or disable seeded demo users and their published default passwords before launch. Keep demo accounts only in a development/demo database. Create your actual admin, judge, and participant accounts through the app's admin user management.
 7. For manual deployment, download the App Service publish profile and add its contents to the GitHub repository secret `AZURE_WEBAPP_PUBLISH_PROFILE` (Repository Settings -> Secrets and variables -> Actions). Never commit or share the profile. The manual workflow at `.github/workflows/deploy-azure.yml` verifies, packages, and deploys the JAR when run from GitHub Actions; ordinary pushes do not deploy. The separate `ci.yml` workflow continues to verify pushes and pull requests.
 8. After deploying, configure the App Service health check path as `/actuator/health`, then check `https://<app-host>/actuator/health`, sign in with each role, and check the API pages below.
+
+## Participant file submissions
+
+Participant uploads are stored in private Azure Blob Storage and indexed in the existing SQL `submissions` table. The accepted formats are PDF, DOCX, PPTX, XLSX, ZIP, and MP4, up to 50 MB each. Each team can submit one file per round; assigned judges download it through the authenticated app. The app checks file signatures, stores a SHA-256 digest, and never exposes a public blob URL. The web app's managed identity needs Blob data access before uploads can succeed.
 
 ## Free preview option
 

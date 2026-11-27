@@ -32,7 +32,7 @@ public class ScoringService {
         // 1. Fetch assignments for this judge
         String sql = "SELECT ja.assignment_id, ja.round_id, r.round_name, e.event_id, e.title AS event_title, "
                 + "e.template_id, ja.team_id, t.team_name, u_lead.full_name AS team_lead, "
-                + "s.file_blob_url, s.file_name, s.submission_notes, ja.status "
+                + "s.submission_id, s.file_name, s.submission_notes, ja.status "
                 + "FROM judge_assignments ja "
                 + "JOIN rounds r ON r.round_id = ja.round_id "
                 + "JOIN events e ON e.event_id = r.event_id "
@@ -61,7 +61,7 @@ public class ScoringService {
                     rs.getInt("team_id"),
                     rs.getString("team_name"),
                     rs.getString("team_lead"),
-                    rs.getString("file_blob_url"),
+                    (Integer) rs.getObject("submission_id"),
                     rs.getString("file_name"),
                     rs.getString("submission_notes"),
                     status,

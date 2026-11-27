@@ -11,7 +11,7 @@ public record JudgeTaskView(
         int teamId,
         String teamName,
         String teamLead,
-        String submissionBlobUrl,
+        Integer submissionId,
         String submissionFileName,
         String submissionNotes,
         String status,

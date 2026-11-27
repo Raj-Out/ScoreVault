@@ -51,6 +51,43 @@
     return data;
   }
 
+  async function apiForm(path, formData) {
+    var token = sessionStorage.getItem(TOKEN_KEY);
+    var headers = {};
+    if (token) { headers.Authorization = 'Bearer ' + token; }
+    var response = await fetch(path, { method: 'POST', headers: headers, body: formData });
+    var data = await response.json().catch(function () { return {}; });
+    if (!response.ok) {
+      var error = new Error(data.error || 'Request failed (' + response.status + ').');
+      error.status = response.status;
+      throw error;
+    }
+    return data;
+  }
+
+  async function downloadSubmission(submissionId) {
+    var token = sessionStorage.getItem(TOKEN_KEY);
+    var response = await fetch('/api/v1/submissions/' + encodeURIComponent(submissionId) + '/file', {
+      headers: token ? { Authorization: 'Bearer ' + token } : {}
+    });
+    if (!response.ok) {
+      var data = await response.json().catch(function () { return {}; });
+      throw new Error(data.error || 'The submission could not be downloaded.');
+    }
+    var blob = await response.blob();
+    var disposition = response.headers.get('Content-Disposition') || '';
+    var match = disposition.match(/filename\*=UTF-8''([^;]+)|filename="?([^";]+)"?/i);
+    var name = match ? decodeURIComponent(match[1] || match[2]) : 'submission';
+    var url = URL.createObjectURL(blob);
+    var link = document.createElement('a');
+    link.href = url;
+    link.download = name;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.setTimeout(function () { URL.revokeObjectURL(url); }, 60000);
+  }
+
   function status(id, message, kind) {
     var element = $(id);
     if (!element) { return; }
@@ -541,6 +578,7 @@
     if (!requireRole('PARTICIPANT', 'team-access', 'team-workspace')) { return; }
     var eventSelect = $('team-event');
     var list = $('my-teams');
+    var rounds = [];
 
     async function loadMine() {
       list.textContent = 'Loading teams…';
@@ -554,7 +592,8 @@
           list.appendChild(empty);
           return;
         }
-        teams.forEach(function (team) {
+        for (var teamIndex = 0; teamIndex < teams.length; teamIndex++) {
+          var team = teams[teamIndex];
           var card = document.createElement('article');
           card.className = 'task-card';
           var heading = document.createElement('h3');
@@ -573,15 +612,113 @@
             solo.textContent = 'No additional members.';
             card.appendChild(solo);
           }
+          var uploadSection = document.createElement('section');
+          uploadSection.className = 'submission-upload';
+          var uploadHeading = document.createElement('h4');
+          uploadHeading.textContent = 'Round submissions';
+          uploadSection.appendChild(uploadHeading);
+          try {
+            var submissions = await api('/api/v1/teams/' + encodeURIComponent(team.teamId) + '/submissions');
+            if (submissions.length) {
+              submissions.forEach(function (submission) {
+                var row = document.createElement('div');
+                row.className = 'submission-row';
+                var detail = document.createElement('span');
+                detail.textContent = submission.roundName + ' · ' + submission.fileName + ' · ' +
+                  (submission.fileSizeBytes / (1024 * 1024)).toFixed(1) + ' MB';
+                var download = document.createElement('button');
+                download.type = 'button';
+                download.className = 'button button-small button-secondary';
+                download.textContent = 'Download';
+                download.addEventListener('click', async function () {
+                  download.disabled = true;
+                  try { await downloadSubmission(submission.submissionId); }
+                  catch (error) { window.alert(error.message); }
+                  finally { download.disabled = false; }
+                });
+                row.append(detail, download);
+                uploadSection.appendChild(row);
+              });
+            }
+            var eligibleRounds = rounds.filter(function (round) {
+              return round.eventId === team.eventId && ['SCHEDULED', 'IN_PROGRESS'].indexOf(round.status) !== -1 &&
+                !submissions.some(function (submission) { return submission.roundId === round.roundId; });
+            });
+            if (eligibleRounds.length) {
+              var form = document.createElement('form');
+              form.className = 'form-stack upload-form';
+              var roundLabel = document.createElement('label');
+              roundLabel.textContent = 'Round';
+              var roundSelect = document.createElement('select');
+              roundSelect.required = true;
+              eligibleRounds.forEach(function (round) {
+                option(roundSelect, round.roundId, round.roundName + ' · ' + round.status.replace('_', ' '));
+              });
+              var fileLabel = document.createElement('label');
+              fileLabel.textContent = 'Submission file (PDF, DOCX, PPTX, XLSX, ZIP, or MP4; max 50 MB)';
+              var fileInput = document.createElement('input');
+              fileInput.type = 'file';
+              fileInput.accept = '.pdf,.docx,.pptx,.xlsx,.zip,.mp4';
+              fileInput.required = true;
+              var notesLabel = document.createElement('label');
+              notesLabel.textContent = 'Notes (optional)';
+              var notes = document.createElement('textarea');
+              notes.maxLength = 1000;
+              notes.rows = 2;
+              var submit = document.createElement('button');
+              submit.type = 'submit';
+              submit.className = 'button button-small';
+              submit.textContent = 'Upload submission';
+              var message = document.createElement('p');
+              message.className = 'form-message';
+              message.setAttribute('role', 'status');
+              form.append(roundLabel, roundSelect, fileLabel, fileInput, notesLabel, notes, submit, message);
+              form.addEventListener('submit', async function (event) {
+                event.preventDefault();
+                if (!fileInput.files || !fileInput.files[0]) { return; }
+                submit.disabled = true;
+                message.textContent = 'Uploading…';
+                try {
+                  var body = new FormData();
+                  body.append('roundId', roundSelect.value);
+                  body.append('file', fileInput.files[0]);
+                  body.append('notes', notes.value.trim());
+                  await apiForm('/api/v1/teams/' + encodeURIComponent(team.teamId) + '/submissions', body);
+                  message.textContent = 'Submission uploaded successfully.';
+                  message.className = 'form-message success';
+                  await loadMine();
+                } catch (error) {
+                  message.textContent = error.message;
+                  message.className = 'form-message error';
+                  submit.disabled = false;
+                }
+              });
+              uploadSection.appendChild(form);
+            } else if (!submissions.length) {
+              var unavailable = document.createElement('p');
+              unavailable.className = 'muted';
+              unavailable.textContent = 'There are no open rounds accepting submissions for this team.';
+              uploadSection.appendChild(unavailable);
+            }
+          } catch (error) {
+            var loadError = document.createElement('p');
+            loadError.className = 'form-message error';
+            loadError.textContent = error.message;
+            uploadSection.appendChild(loadError);
+          }
+          card.appendChild(uploadSection);
           list.appendChild(card);
-        });
+        }
       } catch (error) { list.textContent = error.message; }
     }
 
-    api('/api/v1/teams/events').then(function (events) {
+    Promise.all([api('/api/v1/teams/events'), api('/api/v1/rounds')]).then(async function (results) {
+      var events = results[0];
+      rounds = results[1];
       eventSelect.replaceChildren();
       events.forEach(function (event) { option(eventSelect, event.eventId, event.title + ' · ' + event.categoryName); });
       if (!events.length) { option(eventSelect, '', 'No open events available'); }
+      await loadMine();
     }).catch(function (error) { status('team-status', error.message, 'error'); });
 
     $('team-form').addEventListener('submit', async function (event) {
@@ -603,7 +740,6 @@
       finally { button.disabled = false; }
     });
     $('refresh-teams').addEventListener('click', loadMine);
-    loadMine();
   }
 
   function initJudging() {
@@ -632,12 +768,17 @@
           meta.className = 'task-meta';
           meta.textContent = task.eventTitle + ' · ' + task.roundName + ' · ' + task.teamLead + ' · ' + task.status;
           card.appendChild(meta);
-          if (task.submissionBlobUrl) {
-            var artifact = document.createElement('a');
-            artifact.href = task.submissionBlobUrl;
-            artifact.target = '_blank';
-            artifact.rel = 'noopener noreferrer';
-            artifact.textContent = task.submissionFileName || 'Open submission';
+          if (task.submissionId) {
+            var artifact = document.createElement('button');
+            artifact.type = 'button';
+            artifact.className = 'button button-small button-secondary';
+            artifact.textContent = 'Download ' + (task.submissionFileName || 'submission');
+            artifact.addEventListener('click', async function () {
+              artifact.disabled = true;
+              try { await downloadSubmission(task.submissionId); }
+              catch (error) { window.alert(error.message); }
+              finally { artifact.disabled = false; }
+            });
             card.appendChild(artifact);
           } else if (task.submissionNotes) {
             var notes = document.createElement('p');

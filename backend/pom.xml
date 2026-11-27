@@ -20,6 +20,8 @@
     <properties>
         <java.version>17</java.version>
         <jjwt.version>0.12.6</jjwt.version>
+        <azure-storage-blob.version>12.37.2</azure-storage-blob.version>
+        <azure-identity.version>1.19.0</azure-identity.version>
     </properties>
 
     <dependencies>
@@ -47,6 +49,16 @@
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>
             <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.azure</groupId>
+            <artifactId>azure-storage-blob</artifactId>
+            <version>${azure-storage-blob.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.azure</groupId>
+            <artifactId>azure-identity</artifactId>
+            <version>${azure-identity.version}</version>
         </dependency>
         <dependency>
             <groupId>io.jsonwebtoken</groupId>

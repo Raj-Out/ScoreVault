@@ -98,6 +98,11 @@ tbody tr:last-child td { border-bottom: 0; }
 .task-card { padding: 20px; border: 1px solid var(--line); border-radius: 12px; background: #fff; }
 .task-card h2 { margin-bottom: 6px; font-size: 18px; }
 .task-card .task-meta { margin: 0 0 16px; color: var(--muted); font-size: 13px; }
+.submission-upload { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); }
+.submission-upload h4 { margin: 0 0 12px; }
+.submission-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 8px 0; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.upload-form { margin-top: 14px; }
+@media (max-width: 600px) { .submission-row { align-items: flex-start; flex-direction: column; } }
 .score-control { display: grid; grid-template-columns: 1fr minmax(140px, 280px) 70px; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid #ececf2; }
 .score-control input { min-height: auto; padding: 0; accent-color: var(--blue); }
 .score-value { color: #34384a; font-variant-numeric: tabular-nums; font-size: 13px; text-align: right; }
